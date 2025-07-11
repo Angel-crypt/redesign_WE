@@ -9,6 +9,7 @@ import { AssignedGroups } from './pages/user/assigned-groups/assigned-groups';
 import { AdminLanding } from './pages/admin/admin-landing/admin-landing';
 import { AdminUsers } from './pages/admin/admin-users/admin-users';
 import { Navbar } from './shared/navbar/navbar';
+import { Buttons } from './shared/buttons/buttons';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { Navbar } from './shared/navbar/navbar';
     AdminLanding,
     AdminUsers,
     Navbar,
+    Buttons,
   
   ],
   imports: [
