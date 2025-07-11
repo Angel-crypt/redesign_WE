@@ -8,6 +8,7 @@ import { Landing } from './pages/landing/landing';
 import { EditarPerfil } from './pages/editar-perfil/editar-perfil';
 import { GruposAsignados } from './pages/grupos-asignados/grupos-asignados';
 import { EditProfile } from './pages/user/edit-profile/edit-profile';
+import { AssignedGroups } from './pages/user/assigned-groups/assigned-groups';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { EditProfile } from './pages/user/edit-profile/edit-profile';
     EditarPerfil,
     GruposAsignados,
     EditProfile,
+    AssignedGroups,
   
   ],
   imports: [
