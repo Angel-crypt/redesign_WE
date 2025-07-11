@@ -3,10 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
+import { Login } from './pages/login/login';
+import { Shared } from './shared/shared';
 
 @NgModule({
   declarations: [
-    App
+    App,
+    Login,
+    Shared
   ],
   imports: [
     BrowserModule,
