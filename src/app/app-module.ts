@@ -10,6 +10,7 @@ import { AdminLanding } from './pages/admin/admin-landing/admin-landing';
 import { AdminUsers } from './pages/admin/admin-users/admin-users';
 import { Navbar } from './shared/navbar/navbar';
 import { Buttons } from './shared/buttons/buttons';
+import { Inputs } from './shared/inputs/inputs';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { Buttons } from './shared/buttons/buttons';
     AdminUsers,
     Navbar,
     Buttons,
+    Inputs,
   
   ],
   imports: [
