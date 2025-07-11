@@ -8,6 +8,7 @@ import { EditProfile } from './pages/user/edit-profile/edit-profile';
 import { AssignedGroups } from './pages/user/assigned-groups/assigned-groups';
 import { AdminLanding } from './pages/admin/admin-landing/admin-landing';
 import { AdminUsers } from './pages/admin/admin-users/admin-users';
+import { Navbar } from './shared/navbar/navbar';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AdminUsers } from './pages/admin/admin-users/admin-users';
     AssignedGroups,
     AdminLanding,
     AdminUsers,
+    Navbar,
   
   ],
   imports: [
