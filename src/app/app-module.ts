@@ -7,6 +7,7 @@ import { Login } from './pages/login/login';
 import { Landing } from './pages/landing/landing';
 import { EditarPerfil } from './pages/editar-perfil/editar-perfil';
 import { GruposAsignados } from './pages/grupos-asignados/grupos-asignados';
+import { EditProfile } from './pages/user/edit-profile/edit-profile';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { GruposAsignados } from './pages/grupos-asignados/grupos-asignados';
     Landing,
     EditarPerfil,
     GruposAsignados,
+    EditProfile,
   
   ],
   imports: [
