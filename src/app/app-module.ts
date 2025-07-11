@@ -4,13 +4,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { Login } from './pages/login/login';
-import { Shared } from './shared/shared';
+import { Landing } from './pages/landing/landing';
+import { EditarPerfil } from './pages/editar-perfil/editar-perfil';
+import { GruposAsignados } from './pages/grupos-asignados/grupos-asignados';
 
 @NgModule({
   declarations: [
     App,
     Login,
-    Shared
+    Landing,
+    EditarPerfil,
+    GruposAsignados,
+  
   ],
   imports: [
     BrowserModule,
