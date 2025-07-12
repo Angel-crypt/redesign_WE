@@ -1,1 +1,4 @@
-<p>login works!</p>
+<h2>Login Maestro</h2>
+<input type="text" [(ngModel)]="Credentials.id_usuario" placeholder="Usuario" />
+<input type="password" [(ngModel)]="Credentials.contrasena" placeholder="Contraseña" />
+<button (click)="login()">Iniciar sesión como maestro</button>
