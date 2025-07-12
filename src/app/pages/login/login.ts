@@ -10,13 +10,14 @@ import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
 })
 export class Login {
   constructor(private authService: MaestroAuthService) { }
-  login() {
-    const nCredentials: MaestroLoginRequest = {
+
+  Credentials: MaestroLoginRequest = {
       id_usuario: '',
       contrasena: '',
-    };
-
-    this.authService.loginMaestro(nCredentials).subscribe({
+  };
+  
+  login() {
+    this.authService.loginMaestro(this.Credentials).subscribe({
       next: (res) => {
         if (res.success) {
           console.log('Login correcto:', res.message);
