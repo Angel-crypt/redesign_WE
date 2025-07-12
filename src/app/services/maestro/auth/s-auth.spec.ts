@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SAuth } from './s-auth';
+import { MaestroAuthService } from './s-auth';
 
-describe('SAuth', () => {
-  let service: SAuth;
+describe('MaestroAuthService', () => {
+  let service: MaestroAuthService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SAuth);
+    service = TestBed.inject(MaestroAuthService);
   });
 
   it('should be created', () => {

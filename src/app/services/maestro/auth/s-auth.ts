@@ -3,8 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   MaestroLoginRequest,
-  MaestroLoginResponseSuccess,
-  MaestroLoginResponseError
+  MaestroSessionResponseMesasage
 } from '../../../interfaces/maestro-iauth';
 
 
@@ -17,8 +16,13 @@ export class MaestroAuthService {
 
   constructor(private http: HttpClient) {}
 
-  loginMaestro(data: MaestroLoginRequest): Observable<MaestroLoginResponseSuccess | MaestroLoginResponseError> {
+  loginMaestro(data: MaestroLoginRequest): Observable<MaestroSessionResponseMesasage | MaestroSessionResponseMesasage> {
     const url = `${this.baseUrl}/${this.apiVersion}/maestro/login`;
-    return this.http.post<MaestroLoginResponseSuccess | MaestroLoginResponseError>(url, data);
+    return this.http.post<MaestroSessionResponseMesasage | MaestroSessionResponseMesasage>(url, data);
+  }
+
+  logoutMaestro(): Observable<MaestroSessionResponseMesasage> {
+    const url = `${this.baseUrl}/${this.apiVersion}/maestro/logout`;
+    return this.http.post<MaestroSessionResponseMesasage>(url, {});
   }
 }
