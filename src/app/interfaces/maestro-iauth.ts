@@ -3,12 +3,7 @@ export interface MaestroLoginRequest {
     contrasena: string;
 }
 
-export interface MaestroLoginResponseSuccess {
+export interface MaestroSessionResponseMesasage {
     message: string;
     success: true;
-}
-
-export interface MaestroLoginResponseError {
-    message: string;
-    success: false;
 }
