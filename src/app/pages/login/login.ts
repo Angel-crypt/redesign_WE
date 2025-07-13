@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { MaestroAuthService } from '../../services/maestro/auth/s-auth';
 import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
 
@@ -9,7 +10,10 @@ import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
   styleUrl: './login.less'
 })
 export class Login {
-  constructor(private authService: MaestroAuthService) { }
+  constructor(
+    private authService: MaestroAuthService,
+    private router: Router
+  ) { }
 
   Credentials: MaestroLoginRequest = {
       id_usuario: '',
@@ -20,14 +24,13 @@ export class Login {
     this.authService.loginMaestro(this.Credentials).subscribe({
       next: (res) => {
         if (res.success) {
-          console.log('Login correcto:', res.message);
+          this.router.navigate(['/landing']);
         } else {
           console.error('Error:', res.message);
         }
       },
       error: (err) => {
         if (err.status === 401) {
-          // Aquí capturamos el error 401 y mostramos el mensaje del backend
           console.error('Error:', err.error.error || 'Credenciales inválidas');
         } else {
           console.error('Error en la solicitud HTTP:', err);
