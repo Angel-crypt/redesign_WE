@@ -3,10 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 
-import {
-  MaestroLoginRequest,
-  MaestroSessionResponseMesasage
-} from '../../../interfaces/maestro-iauth';
+import { LoginRequest, SessionResponse } from '../../../interfaces/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +16,10 @@ export class MaestroAuthService {
 
   constructor(private http: HttpClient) {}
 
-  loginMaestro(data: MaestroLoginRequest): Observable<MaestroSessionResponseMesasage | MaestroSessionResponseMesasage> {
+  loginMaestro(data: LoginRequest): Observable<SessionResponse> {
     const url = `${this.baseUrl}/${this.apiVersion}/maestro/login`;
-    return this.http.post<MaestroSessionResponseMesasage | MaestroSessionResponseMesasage>(url, data, { withCredentials: true }).pipe(
-      tap((response: MaestroSessionResponseMesasage) => {
+    return this.http.post<SessionResponse>(url, data, { withCredentials: true }).pipe(
+      tap((response: SessionResponse) => {
         if (response.success) {
           this.isLoggedIn = true;
         }
@@ -30,10 +27,10 @@ export class MaestroAuthService {
     );
   }
 
-  logoutMaestro(): Observable<MaestroSessionResponseMesasage> {
+  logoutMaestro(): Observable<SessionResponse> {
     const url = `${this.baseUrl}/${this.apiVersion}/maestro/logout`;
-    return this.http.post<MaestroSessionResponseMesasage>(url, {}, { withCredentials: true }).pipe(
-      tap((response: MaestroSessionResponseMesasage) => {
+    return this.http.post<SessionResponse>(url, {}, { withCredentials: true }).pipe(
+      tap((response: SessionResponse) => {
         if (response.success) {
           this.isLoggedIn = false;
         }

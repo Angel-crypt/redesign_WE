@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaestroAuthService } from '../../services/maestro/auth/s-auth';
-import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
+import { LoginRequest } from '../../interfaces/auth';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -40,7 +40,7 @@ export class Login {
 
   login() {
     if (this.form.valid) {
-      const credentials: MaestroLoginRequest = this.form.value;
+      const credentials: LoginRequest = this.form.value;
 
       this.authService.loginMaestro(credentials).subscribe({
         next: (res) => {

@@ -1,5 +1,5 @@
 <!-- src/app/pages/user/landing/landing.html -->
-<h2>
+<h2 *ngIf="maestroData?.maestro">
     Bienvenido,
     {{ maestroData?.maestro?.nombre }}
     {{ maestroData?.maestro?.apellido_paterno }}
@@ -10,7 +10,7 @@
 <h4>Asignaciones ({{ maestroData?.total_asignaciones }}):</h4>
 <ul>
     <li *ngFor="let asignacion of maestroData?.asignaciones">
-        {{ asignacion.curso.nombre }} - Grupo: {{ asignacion.grupo.nombre_grupo }}
+        {{ asignacion.curso.nombre }} - Grupo: {{ asignacion.grupo.nombre }}
     </li>
 </ul>
 
