@@ -40,3 +40,85 @@ body {
   background-color: @bg-primary;
 }
 
+.swal2-popup.custom-swal {
+  background-color: @bg-primary;
+  color: @primary-color;
+  border-radius: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.swal2-title.custom-title {
+  color: @primary-color;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.swal2-html-container.custom-text {
+  font-size: 1rem;
+  color: @text-muted;
+  margin-top: 0.5rem;
+}
+
+/* === Iconos === */
+
+.swal2-icon.swal2-success {
+  color: @success-color;
+  border-color: @success-color;
+}
+
+.swal2-icon.swal2-error {
+  color: @danger-color;
+  border-color: @danger-color;
+}
+
+.swal2-icon.swal2-warning {
+  color: @warning-color;
+  border-color: @warning-color;
+}
+
+/* === Botones === */
+
+.swal2-confirm,
+.swal2-cancel {
+  font-weight: bold;
+  padding: 0.6rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* Confirmación: Éxito */
+.swal2-confirm.custom-success {
+  background-color: @success-color;
+  color: @bg-primary;
+}
+.swal2-confirm.custom-success:hover,
+.swal2-confirm.custom-success:focus {
+  background-color: darken(@success-color, 10%);
+}
+
+/* Cancelación/Error */
+.swal2-cancel.custom-error {
+  background-color: @danger-color;
+  color: @bg-primary;
+}
+.swal2-cancel.custom-error:hover,
+.swal2-cancel.custom-error:focus {
+  background-color: darken(@danger-color, 10%);
+}
+
+/* Confirmación: Advertencia */
+.swal2-confirm.custom-warning-confirm {
+  background-color: @warning-color;
+  color: @bg-primary;
+}
+.swal2-confirm.custom-warning-confirm:hover,
+.swal2-confirm.custom-warning-confirm:focus {
+  background-color: darken(@warning-color, 10%);
+}

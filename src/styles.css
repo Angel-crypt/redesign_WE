@@ -13,3 +13,74 @@ body {
   color: #2e2e2e;
   background-color: #ffffff;
 }
+.swal2-popup.custom-swal {
+  background-color: #ffffff;
+  color: #4B0082;
+  border-radius: 1rem;
+  font-family: 'Segoe UI', sans-serif;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: all 0.3s ease-in-out;
+}
+.swal2-title.custom-title {
+  color: #4B0082;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.swal2-html-container.custom-text {
+  font-size: 1rem;
+  color: #999999;
+  margin-top: 0.5rem;
+}
+/* === Iconos === */
+.swal2-icon.swal2-success {
+  color: #28a745;
+  border-color: #28a745;
+}
+.swal2-icon.swal2-error {
+  color: #dc3545;
+  border-color: #dc3545;
+}
+.swal2-icon.swal2-warning {
+  color: #fccb37;
+  border-color: #fccb37;
+}
+/* === Botones === */
+.swal2-confirm,
+.swal2-cancel {
+  font-weight: bold;
+  padding: 0.6rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+/* Confirmación: Éxito */
+.swal2-confirm.custom-success {
+  background-color: #28a745;
+  color: #ffffff;
+}
+.swal2-confirm.custom-success:hover,
+.swal2-confirm.custom-success:focus {
+  background-color: #1e7e34;
+}
+/* Cancelación/Error */
+.swal2-cancel.custom-error {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+.swal2-cancel.custom-error:hover,
+.swal2-cancel.custom-error:focus {
+  background-color: #bd2130;
+}
+/* Confirmación: Advertencia */
+.swal2-confirm.custom-warning-confirm {
+  background-color: #fccb37;
+  color: #ffffff;
+}
+.swal2-confirm.custom-warning-confirm:hover,
+.swal2-confirm.custom-warning-confirm:focus {
+  background-color: #fbbe05;
+}

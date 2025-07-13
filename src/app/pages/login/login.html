@@ -1,18 +1,20 @@
 <div class="login-container">
     <div class="login-box">
-        <h2 class="login-title">Inicio de sesión</h2>
+        <img src="assets/images/logo_gu.png" alt="Logo" class="login-logo">
+        <h2 class="login-title">Docentes</h2>
+        <p class="login-subtitle">Inicio de sesión</p>
         <form [formGroup]="form" (ngSubmit)="login()">
             <div class="input-container">
-                <app-input-form label="Usuario" type="text" placeholder="Ingrese su usuario" [control]="form.get('id_usuario')"
+                <app-input-form type="text" placeholder="ID" [control]="form.get('id_usuario')"
                     (input)="onUppercaseInput($event)">
                 </app-input-form>
 
-                <app-input-form label="Contraseña" type="password" placeholder="Ingrese su contraseña"
+                <app-input-form type="password" placeholder="Contraseña"
                     [control]="form.get('contrasena')">
                 </app-input-form>
             </div>
             <div class="button-container">
-                <app-button-action label="Iniciar Sesión" type="submit" [disabled]="form.invalid" (action)="login()">
+                <app-button-action label="Iniciar" type="submit" [disabled]="form.invalid" (action)="login()">
                 </app-button-action>
             </div>
         </form>

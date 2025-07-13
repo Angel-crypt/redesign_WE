@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaestroAuthService } from '../../services/maestro/auth/s-auth';
 import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -40,23 +41,47 @@ export class Login {
   login() {
     if (this.form.valid) {
       const credentials: MaestroLoginRequest = this.form.value;
+
       this.authService.loginMaestro(credentials).subscribe({
         next: (res) => {
           if (res.success) {
             this.router.navigate(['/landing']);
           } else {
-            console.error('Error:', res.message);
+            Swal.fire({
+              icon: 'error',
+              title: 'Inicio de sesión fallido',
+              text: res.message || 'Credenciales incorrectas',
+              customClass: {
+                popup: 'custom-swal',
+                title: 'custom-title',
+                htmlContainer: 'custom-text',
+                confirmButton: 'custom-error',
+              },
+              confirmButtonText: 'Reintentar',
+            });
+            this.form.reset();
           }
         },
         error: (err) => {
+          let mensaje = 'Error en la solicitud';
           if (err.status === 401) {
-            console.error(
-              'Error:',
-              err.error.error || 'Credenciales inválidas'
-            );
-          } else {
-            console.error('Error en la solicitud HTTP:', err);
+            mensaje = err.error?.error || 'Credenciales inválidas';
           }
+
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: mensaje,
+            customClass: {
+              popup: 'custom-swal',
+              title: 'custom-title',
+              htmlContainer: 'custom-text',
+              confirmButton: 'custom-error',
+            },
+            confirmButtonText: 'Reintentar',
+          });
+
+          this.form.reset();
         },
       });
     }
