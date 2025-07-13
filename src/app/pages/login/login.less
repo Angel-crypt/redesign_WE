@@ -1,0 +1,57 @@
+@import '../../../styles.less';
+
+.content {
+  padding: 0;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, @bg-secondary 0%, darken(@bg-secondary, 10%) 100%);
+  padding: @spacing-md;
+}
+
+.login-box {
+  background-color: @bg-primary;
+  padding: @spacing-xl @spacing-lg;
+  border-radius: 16px;
+  box-shadow: 
+    0 10px 25px rgba(0, 0, 0, 0.1),
+    0 4px 10px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-lg;
+  position: relative;
+  backdrop-filter: blur(10px);
+  border: 1px solid fade(@primary-color, 10%);
+}
+
+.login-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  color: @primary-color;
+  margin-bottom: @spacing-md;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, @primary-color, lighten(@primary-color, 15%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: @spacing-md;
+}
+
+.button-container {
+  margin-top: @spacing-md;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaestroAuthService } from '../../services/maestro/auth/s-auth';
 import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
@@ -7,36 +8,57 @@ import { MaestroLoginRequest } from '../../interfaces/maestro-iauth';
   selector: 'app-login',
   standalone: false,
   templateUrl: './login.html',
-  styleUrl: './login.less'
+  styleUrls: ['./login.less'],
 })
 export class Login {
+  form: FormGroup;
+
   constructor(
     private authService: MaestroAuthService,
-    private router: Router
-  ) { }
-
-  Credentials: MaestroLoginRequest = {
-      id_usuario: '',
-      contrasena: '',
-  };
-  
-  login() {
-    this.authService.loginMaestro(this.Credentials).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.router.navigate(['/landing']);
-        } else {
-          console.error('Error:', res.message);
-        }
-      },
-      error: (err) => {
-        if (err.status === 401) {
-          console.error('Error:', err.error.error || 'Credenciales inválidas');
-        } else {
-          console.error('Error en la solicitud HTTP:', err);
-        }
-      }
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.form = this.fb.group({
+      id_usuario: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          Validators.maxLength(6),
+          Validators.pattern(/^[A-Za-z0-9]+$/),
+        ],
+      ],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
     });
+  }
 
+  onUppercaseInput(event: any) {
+    const value = event.target.value.toUpperCase();
+    this.form.get('id_usuario')?.setValue(value);
+  }
+
+  login() {
+    if (this.form.valid) {
+      const credentials: MaestroLoginRequest = this.form.value;
+      this.authService.loginMaestro(credentials).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this.router.navigate(['/landing']);
+          } else {
+            console.error('Error:', res.message);
+          }
+        },
+        error: (err) => {
+          if (err.status === 401) {
+            console.error(
+              'Error:',
+              err.error.error || 'Credenciales inválidas'
+            );
+          } else {
+            console.error('Error en la solicitud HTTP:', err);
+          }
+        },
+      });
+    }
   }
 }

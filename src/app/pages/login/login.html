@@ -1,4 +1,20 @@
-<h2>Login Maestro</h2>
-<input type="text" [(ngModel)]="Credentials.id_usuario" placeholder="Usuario" />
-<input type="password" [(ngModel)]="Credentials.contrasena" placeholder="Contraseña" />
-<button (click)="login()">Iniciar sesión como maestro</button>
+<div class="login-container">
+    <div class="login-box">
+        <h2 class="login-title">Inicio de sesión</h2>
+        <form [formGroup]="form" (ngSubmit)="login()">
+            <div class="input-container">
+                <app-input-form label="Usuario" type="text" placeholder="Ingrese su usuario" [control]="form.get('id_usuario')"
+                    (input)="onUppercaseInput($event)">
+                </app-input-form>
+
+                <app-input-form label="Contraseña" type="password" placeholder="Ingrese su contraseña"
+                    [control]="form.get('contrasena')">
+                </app-input-form>
+            </div>
+            <div class="button-container">
+                <app-button-action label="Iniciar Sesión" type="submit" [disabled]="form.invalid" (action)="login()">
+                </app-button-action>
+            </div>
+        </form>
+    </div>
+</div>
