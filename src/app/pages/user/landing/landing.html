@@ -1,1 +1,26 @@
-<p>landing works!</p>
+<!-- src/app/pages/user/landing/landing.html -->
+<h2>
+    Bienvenido,
+    {{ maestroData?.maestro?.nombre }}
+    {{ maestroData?.maestro?.apellido_paterno }}
+</h2>
+
+<h3>Especialidad: {{ maestroData?.maestro?.especialidad }}</h3>
+
+<h4>Asignaciones ({{ maestroData?.total_asignaciones }}):</h4>
+<ul>
+    <li *ngFor="let asignacion of maestroData?.asignaciones">
+        {{ asignacion.curso.nombre }} - Grupo: {{ asignacion.grupo.nombre_grupo }}
+    </li>
+</ul>
+
+<h4>Disponibilidad ({{ maestroData?.total_disponibilidad }}):</h4>
+<ul>
+    <li *ngFor="let disponibilidad of maestroData?.disponibilidad">
+        {{ disponibilidad.dia_semana }}: {{ disponibilidad.hora_inicio }} - {{ disponibilidad.hora_fin }}
+    </li>
+</ul>
+
+<div *ngIf="!loading && error">
+    <p style="color: red;">{{ error }}</p>
+</div>
