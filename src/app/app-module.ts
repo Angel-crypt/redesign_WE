@@ -18,6 +18,9 @@ import { Navbar } from './shared/navbar/navbar';
 import { Buttons } from './shared/buttons/buttons';
 import { Inputs } from './shared/inputs/inputs';
 import { Sidebar } from './shared/sidebar/sidebar';
+import { ButtonAction } from './shared/button-action/button-action';
+import { InputForm } from './shared/input-form/input-form';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { Sidebar } from './shared/sidebar/sidebar';
     Inputs,
     Landing,
     Sidebar,
+    ButtonAction,
+    InputForm
   ],
   imports: [
     BrowserModule,
