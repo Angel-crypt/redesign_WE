@@ -1,0 +1,35 @@
+<div class="input-form-container">
+    <label>
+        {{ label }}
+        <div class="input-wrapper">
+            <input [ngClass]="{
+                'input-error': control.invalid && (control.touched || control.dirty),
+                'input-valid': control.valid && (control.touched || control.dirty)
+            }" [type]="currentType" [placeholder]="placeholder" [formControl]="control" [value]="value"
+                [attr.aria-describedby]="control.invalid && (control.touched || control.dirty) ? 'error-' + label : null"
+                [attr.aria-invalid]="control.invalid && (control.touched || control.dirty)" />
+            <button *ngIf="type === 'password'" type="button" class="toggle-password" (click)="togglePassword()">
+                {{ isPasswordVisible ? 'Ocultar' : 'Mostrar' }}
+            </button>
+        </div>
+    </label>
+
+    <!-- Mensajes de error mejorados -->
+    <div class="error-messages" *ngIf="control.invalid && (control.touched || control.dirty)">
+        <span class="error-message" *ngIf="control.errors?.['required']" [id]="'error-' + label">
+            {{ label }} es requerido
+        </span>
+        <span class="error-message" *ngIf="control.errors?.['minlength']" [id]="'error-' + label">
+            {{ label }} debe tener al menos {{ control.errors?.['minlength']?.requiredLength }} caracteres
+        </span>
+        <span class="error-message" *ngIf="control.errors?.['maxlength']" [id]="'error-' + label">
+            {{ label }} no puede tener más de {{ control.errors?.['maxlength']?.requiredLength }} caracteres
+        </span>
+        <span class="error-message" *ngIf="control.errors?.['pattern']" [id]="'error-' + label">
+            {{ label }} no cumple con el formato requerido
+        </span>
+        <span class="error-message" *ngIf="control.errors?.['email']" [id]="'error-' + label">
+            {{ label }} debe ser un correo electrónico válido
+        </span>
+    </div>
+</div>
