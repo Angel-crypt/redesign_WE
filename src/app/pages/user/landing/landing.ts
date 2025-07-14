@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Stats } from '../../../services/maestro/landing/stats';
 import { SSidebar, MenuItem } from '../../../services/general/s-sidebar';
-import { MaestroEstadisticas } from '../../../interfaces/academic';
+import { MaestroEstadisticas } from '../../../interfaces/maestro-interfaces';
 
 @Component({
   selector: 'app-landing',
