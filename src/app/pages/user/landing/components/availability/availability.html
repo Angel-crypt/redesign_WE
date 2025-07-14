@@ -1,1 +1,8 @@
-<p>availability works!</p>
+<h4>Disponibilidad ({{ total }}):</h4>
+
+<div class="availability-list">
+  <div class="availability-item" *ngFor="let horario of disponibilidad">
+    <p class="dia">{{ horario.dia_semana }}</p>
+    <p class="horas">{{ horario.hora_inicio }} - {{ horario.hora_fin }}</p>
+  </div>
+</div>
