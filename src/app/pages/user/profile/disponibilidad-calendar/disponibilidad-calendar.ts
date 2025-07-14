@@ -23,8 +23,7 @@ export class DisponibilidadCalendar implements OnInit {
   error: string | null = null;
   hours: string[] = [];
   constructor(private disponibilidadService: DisponibilidadService) {
-    // Generate hours from 7:00 to 23:00
-    for (let hour = 7; hour <= 23; hour++) {
+    for (let hour = 7; hour <= 20; hour++) {
       this.hours.push(`${hour}:00`);
     }
   }
