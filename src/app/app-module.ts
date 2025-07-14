@@ -20,6 +20,7 @@ import { Inputs } from './shared/inputs/inputs';
 import { Sidebar } from './shared/sidebar/sidebar';
 import { ButtonAction } from './shared/button-action/button-action';
 import { InputForm } from './shared/input-form/input-form';
+import { Profile } from './pages/user/profile/profile';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { InputForm } from './shared/input-form/input-form';
     Landing,
     Sidebar,
     ButtonAction,
-    InputForm
+    InputForm,
+    Profile
   ],
   imports: [
     BrowserModule,
