@@ -1,0 +1,53 @@
+<div *ngIf="maestroData" class="perfil-header">
+    <h3>
+        {{ maestroData.nombre }}
+        {{ maestroData.apellido_paterno }}
+        {{ maestroData.apellido_materno }} -
+        {{ maestroData.especialidad }} -
+        {{ maestroData.fecha_nacimiento | date: 'dd/MM/yyyy' }} -
+        {{ maestroData.id_usuario }}
+    </h3>
+
+    <app-button-action 
+        label="{{ isEditing ? 'Cancelar' : 'Editar' }}"
+        type="button"
+        (action)="setEditingMode(!isEditing)">
+    </app-button-action>
+</div>
+
+<form [formGroup]="dataProfileUpdate" (ngSubmit)="updatePerfilData()">
+    <div class="input-container">
+        <app-input-form 
+            type="text" placeholder="Nombre" value="{{ maestroData?.nombre }}"
+            [control]="dataProfileUpdate.get('nombre')">
+        </app-input-form>
+        
+        <app-input-form 
+            type="text" placeholder="Apellido Paterno" value="{{ maestroData?.apellido_paterno }}"
+            [control]="dataProfileUpdate.get('apellido_paterno')">
+        </app-input-form>
+        
+        <app-input-form 
+            type="text" placeholder="Apellido Materno" value="{{ maestroData?.apellido_materno }}"
+            [control]="dataProfileUpdate.get('apellido_materno')">
+        </app-input-form>
+        <app-select-especialidad 
+            [control]="especialidadControl"
+            [disabled]="!isEditing">
+        </app-select-especialidad>
+        <app-input-form 
+            type="date" placeholder="Fecha de Nacimiento"
+            value="{{ maestroData?.fecha_nacimiento | date: 'yyyy-MM-dd' }}"
+            [control]="dataProfileUpdate.get('fecha_nacimiento')">
+        </app-input-form>
+    </div>
+
+    <div class="button-container">
+        <app-button-action label="Actualizar" type="submit" [disabled]="dataProfileUpdate.invalid || loading || !isEditing"
+            (action)="updatePerfilData()"></app-button-action>
+    </div>
+</form>
+
+<div *ngIf="!loading && error">
+    <p style="color: red;">{{ error }}</p>
+</div>

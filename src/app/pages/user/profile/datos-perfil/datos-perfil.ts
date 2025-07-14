@@ -1,28 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProfileService } from '../../../services/maestro/profile/profile-service';
-import { edadMinMaxValidator } from '../../../shared/validators/edad-min-max';
-
-import { SSidebar } from '../../../services/general/s-sidebar';
-import { Maestro } from '../../../interfaces/entities';
+import { ChangeDetectorRef } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
+import { ProfileService } from '../../../../services/maestro/profile/profile-service';
+import { edadMinMaxValidator } from '../../../../shared/validators/edad-min-max';
+import { SSidebar } from '../../../../services/general/s-sidebar';
+import { Maestro } from '../../../../interfaces/entities';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-datos-perfil',
   standalone: false,
-  templateUrl: './profile.html',
-  styleUrl: './profile.less',
+  templateUrl: './datos-perfil.html',
+  styleUrl: './datos-perfil.less',
 })
-export class Profile implements OnInit {
+export class DatosPerfil implements OnInit {
   maestroData: Maestro | null = null;
   loading: boolean = true;
   error: string | null = null;
   dataProfileUpdate: FormGroup;
+  isEditing: boolean = false;
 
   constructor(
     private profileService: ProfileService,
     private sidebarService: SSidebar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {
     this.dataProfileUpdate = this.fb.group({
       nombre: [
@@ -76,25 +83,57 @@ export class Profile implements OnInit {
     this.sidebarService.setMaestroMenu();
     this.profileService.getPerfilData().subscribe({
       next: (res) => {
-        if (res.success) {
-          this.maestroData = res.data!;
+        if (res.success && res.data) {
+          this.maestroData = res.data;
+          this.dataProfileUpdate.patchValue({
+            nombre: this.maestroData.nombre,
+            apellido_paterno: this.maestroData.apellido_paterno,
+            apellido_materno: this.maestroData.apellido_materno,
+            fecha_nacimiento: this.maestroData.fecha_nacimiento,
+            especialidad: this.maestroData.especialidad,
+          });
         } else {
           this.error = 'No se pudieron cargar los datos del perfil';
         }
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Ocurrió un error al consultar el perfil';
         this.loading = false;
+        this.cdr.detectChanges();
         console.error(err);
       },
     });
+    this.dataProfileUpdate.disable();
+  }
+
+  get especialidadControl(): FormControl {
+    return this.dataProfileUpdate.get('especialidad') as FormControl;
+  }
+
+  setEditingMode(isEditing: boolean): void {
+    this.isEditing = isEditing;
+
+    if (isEditing) {
+      this.dataProfileUpdate.enable();
+    } else {
+      this.dataProfileUpdate.disable();
+      if (this.maestroData) {
+        this.dataProfileUpdate.patchValue({
+          nombre: this.maestroData.nombre,
+          apellido_paterno: this.maestroData.apellido_paterno,
+          apellido_materno: this.maestroData.apellido_materno,
+          fecha_nacimiento: this.maestroData.fecha_nacimiento,
+          especialidad: this.maestroData.especialidad,
+        });
+      }
+    }
   }
 
   updatePerfilData() {
     if (this.dataProfileUpdate.valid) {
       const updatedData: Maestro = this.dataProfileUpdate.value;
-
       this.profileService.updatePerfilData(updatedData).subscribe({
         next: (res) => {
           if (res.success) {
@@ -125,8 +164,23 @@ export class Profile implements OnInit {
               confirmButtonText: 'Reintentar',
             });
           }
-        }
-      })
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al intentar actualizar el perfil. Por favor, intenta de nuevo.',
+            customClass: {
+              popup: 'custom-swal',
+              title: 'custom-title',
+              htmlContainer: 'custom-text',
+              confirmButton: 'custom-error',
+            },
+            confirmButtonText: 'Aceptar',
+          });
+          console.error(err);
+        },
+      });
     }
   }
 }
