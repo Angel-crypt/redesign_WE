@@ -4,6 +4,16 @@
     {{ maestro.nombre }} {{ maestro.apellido_paterno }} {{ maestro.apellido_materno }}
     </h3>
 
+    <p class="perfil-header__detalle">
+    Especialidad: {{ maestro.especialidad }}
+    </p>
+    <p class="perfil-header__detalle">
+    Fecha de nacimiento: {{ maestro.fecha_nacimiento | date: 'dd/MM/yyyy' }}
+    </p>
+    <p class="perfil-header__detalle">
+    ID de usuario: {{ maestro.id_usuario }}
+    </p>
+
     <app-button-action 
         label="{{ isEditing ? 'Cancelar' : 'Editar' }}"
         type="button"
