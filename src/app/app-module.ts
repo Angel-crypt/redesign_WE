@@ -20,11 +20,11 @@ import { Inputs } from './shared/inputs/inputs';
 import { Sidebar } from './shared/sidebar/sidebar';
 import { ButtonAction } from './shared/button-action/button-action';
 import { InputForm } from './shared/input-form/input-form';
-import { Profile } from './pages/user/profile/profile';
 import { Assignments } from './pages/user/landing/components/assignments/assignments';
 import { AvailabilityComponent } from './pages/user/landing/components/availability/availability';
 import { SelectEspecialidadComponent } from './shared/select-especialidad/select-especialidad';
-
+import { DatosPerfil } from './pages/user/profile/datos-perfil/datos-perfil';
+import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
 
 @NgModule({
   declarations: [
@@ -41,10 +41,11 @@ import { SelectEspecialidadComponent } from './shared/select-especialidad/select
     Sidebar,
     ButtonAction,
     InputForm,
-    Profile,
     Assignments,
     AvailabilityComponent,
     SelectEspecialidadComponent,
+    DatosPerfil,
+    ProfilePage,
   ],
   imports: [
     BrowserModule,
