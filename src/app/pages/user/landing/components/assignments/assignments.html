@@ -1,1 +1,8 @@
-<p>assignments works!</p>
+  <h4>Asignaciones ({{ total }}):</h4>
+
+  <div class="assignment-list">
+    <div class="assignment-card" *ngFor="let asignacion of asignaciones">
+      <p class="course-name">{{ asignacion.curso.nombre }}</p>
+      <p class="group-name">Grupo: {{ asignacion.grupo.nombre }}</p>
+    </div>
+  </div>
