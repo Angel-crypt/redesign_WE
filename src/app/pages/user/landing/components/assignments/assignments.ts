@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Assignment } from './assignment.model';
 
 @Component({
   selector: 'app-assignments',
-  standalone: false,
   templateUrl: './assignments.html',
-  styleUrl: './assignments.less'
+  styleUrls: ['./assignments.less']
 })
 export class Assignments {
-
+  @Input() asignaciones: Assignment[] = [];
+  @Input() total: number = 0;
 }
