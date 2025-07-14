@@ -17,4 +17,7 @@ export interface MaestroDashboardResponse
   extends ApiResponse<MaestroEstadisticas> {}
 
 export interface MaestroProfileResponse
-  extends ApiResponse<Maestro> {}
+  extends ApiResponse<Maestro> { }
+
+export interface MaestroDisponibilidadResponse
+  extends ApiResponse<Disponibilidad[]> { }
