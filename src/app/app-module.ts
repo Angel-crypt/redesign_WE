@@ -10,7 +10,6 @@ import { App } from './app';
 import { Login } from './pages/login/login';
 import { Landing } from './pages/user/landing/landing';
 
-import { EditProfile } from './pages/user/edit-profile/edit-profile';
 import { AssignedGroups } from './pages/user/assigned-groups/assigned-groups';
 import { AdminLanding } from './pages/admin/admin-landing/admin-landing';
 import { AdminUsers } from './pages/admin/admin-users/admin-users';
@@ -31,7 +30,6 @@ import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-cale
   declarations: [
     App,
     Login,
-    EditProfile,
     AssignedGroups,
     AdminLanding,
     AdminUsers,
