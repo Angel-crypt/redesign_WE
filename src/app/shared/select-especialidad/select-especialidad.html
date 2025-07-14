@@ -3,7 +3,7 @@
     'input-error': control.invalid && (control.touched || control.dirty),
     'input-valid': control.valid && (control.touched || control.dirty)
   }" [attr.aria-describedby]="control.invalid && (control.touched || control.dirty) ? 'error-' + label : null"
-    [attr.aria-invalid]="control.invalid && (control.touched || control.dirty)">
+    [attr.aria-invalid]="control.invalid && (control.touched || control.dirty)" [disabled]="disabled">
     <option value="" disabled>Seleccione una especialidad</option>
     <option *ngFor="let esp of especialidades" [value]="esp">{{ esp }}</option>
 </select>

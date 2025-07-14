@@ -24,6 +24,7 @@ export class SelectEspecialidadComponent
   @Input() especialidades: string[] = [];
   @Input() label: string = 'Especialidad';
   @Input() control!: FormControl;
+  @Input() disabled: boolean = false;
 
   onChange = (_: any) => {};
   onTouched = () => {};

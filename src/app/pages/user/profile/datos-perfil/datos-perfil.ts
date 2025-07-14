@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -22,11 +23,13 @@ export class DatosPerfil implements OnInit {
   loading: boolean = true;
   error: string | null = null;
   dataProfileUpdate: FormGroup;
+  isEditing: boolean = false;
 
   constructor(
     private profileService: ProfileService,
     private sidebarService: SSidebar,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cdr: ChangeDetectorRef
   ) {
     this.dataProfileUpdate = this.fb.group({
       nombre: [
@@ -93,17 +96,39 @@ export class DatosPerfil implements OnInit {
           this.error = 'No se pudieron cargar los datos del perfil';
         }
         this.loading = false;
+        this.cdr.detectChanges();
       },
       error: (err) => {
         this.error = 'Ocurrió un error al consultar el perfil';
         this.loading = false;
+        this.cdr.detectChanges();
         console.error(err);
       },
     });
+    this.dataProfileUpdate.disable();
   }
 
   get especialidadControl(): FormControl {
     return this.dataProfileUpdate.get('especialidad') as FormControl;
+  }
+
+  setEditingMode(isEditing: boolean): void {
+    this.isEditing = isEditing;
+
+    if (isEditing) {
+      this.dataProfileUpdate.enable();
+    } else {
+      this.dataProfileUpdate.disable();
+      if (this.maestroData) {
+        this.dataProfileUpdate.patchValue({
+          nombre: this.maestroData.nombre,
+          apellido_paterno: this.maestroData.apellido_paterno,
+          apellido_materno: this.maestroData.apellido_materno,
+          fecha_nacimiento: this.maestroData.fecha_nacimiento,
+          especialidad: this.maestroData.especialidad,
+        });
+      }
+    }
   }
 
   updatePerfilData() {
