@@ -41,7 +41,7 @@ export interface Horario {
 }
 
 export interface Disponibilidad extends Horario {
-  id_disponibilidad?: ID;
+  id_disponibilidad: ID;
   maestroId?: ID;
 }
 
