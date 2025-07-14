@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { ProfileService } from '../../../services/maestro/profile/profile-service';
 import { edadMinMaxValidator } from '../../../shared/validators/edad-min-max';
-
 import { SSidebar } from '../../../services/general/s-sidebar';
 import { Maestro } from '../../../interfaces/entities';
 import Swal from 'sweetalert2';
@@ -76,8 +80,15 @@ export class Profile implements OnInit {
     this.sidebarService.setMaestroMenu();
     this.profileService.getPerfilData().subscribe({
       next: (res) => {
-        if (res.success) {
-          this.maestroData = res.data!;
+        if (res.success && res.data) {
+          this.maestroData = res.data;
+          this.dataProfileUpdate.patchValue({
+            nombre: this.maestroData.nombre,
+            apellido_paterno: this.maestroData.apellido_paterno,
+            apellido_materno: this.maestroData.apellido_materno,
+            fecha_nacimiento: this.maestroData.fecha_nacimiento,
+            especialidad: this.maestroData.especialidad,
+          });
         } else {
           this.error = 'No se pudieron cargar los datos del perfil';
         }
@@ -91,10 +102,13 @@ export class Profile implements OnInit {
     });
   }
 
+  get especialidadControl(): FormControl {
+    return this.dataProfileUpdate.get('especialidad') as FormControl;
+  }
+
   updatePerfilData() {
     if (this.dataProfileUpdate.valid) {
       const updatedData: Maestro = this.dataProfileUpdate.value;
-
       this.profileService.updatePerfilData(updatedData).subscribe({
         next: (res) => {
           if (res.success) {
@@ -125,8 +139,23 @@ export class Profile implements OnInit {
               confirmButtonText: 'Reintentar',
             });
           }
-        }
-      })
+        },
+        error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ocurrió un error al intentar actualizar el perfil. Por favor, intenta de nuevo.',
+            customClass: {
+              popup: 'custom-swal',
+              title: 'custom-title',
+              htmlContainer: 'custom-text',
+              confirmButton: 'custom-error',
+            },
+            confirmButtonText: 'Aceptar',
+          });
+          console.error(err);
+        },
+      });
     }
   }
 }

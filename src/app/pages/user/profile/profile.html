@@ -1,4 +1,4 @@
-<h2>Mi Maestro</h2>
+<h2>Mi Perfil</h2>
 
 <h3 *ngIf="maestroData">
     Bienvenido,
@@ -12,14 +12,20 @@
 
 <form [formGroup]="dataProfileUpdate" (ngSubmit)="updatePerfilData()">
     <div class="input-container">
-        <app-input-form type="text" placeholder="Nombre" [control]="dataProfileUpdate.get('nombre')"></app-input-form>
-        <app-input-form type="text" placeholder="Apellido Paterno" [control]="dataProfileUpdate.get('apellido_paterno')"></app-input-form>
-        <app-input-form type="text" placeholder="Apellido Materno" [control]="dataProfileUpdate.get('apellido_materno')"></app-input-form>
-        <app-input-form type="text" placeholder="Especialidad" [control]="dataProfileUpdate.get('especialidad')"></app-input-form>
-        <app-input-form type="date" placeholder="Fecha de Nacimiento" [control]="dataProfileUpdate.get('fecha_nacimiento')"></app-input-form>
+        <app-input-form type="text" placeholder="Nombre" value="{{ maestroData?.nombre }}"
+            [control]="dataProfileUpdate.get('nombre')"></app-input-form>
+        <app-input-form type="text" placeholder="Apellido Paterno" value="{{ maestroData?.apellido_paterno }}"
+            [control]="dataProfileUpdate.get('apellido_paterno')"></app-input-form>
+        <app-input-form type="text" placeholder="Apellido Materno" value="{{ maestroData?.apellido_materno }}"
+            [control]="dataProfileUpdate.get('apellido_materno')"></app-input-form>
+        <app-select-especialidad [control]="especialidadControl"></app-select-especialidad>
+        <app-input-form type="date" placeholder="Fecha de Nacimiento"
+            value="{{ maestroData?.fecha_nacimiento | date: 'yyyy-MM-dd' }}"
+            [control]="dataProfileUpdate.get('fecha_nacimiento')"></app-input-form>
     </div>
     <div class="button-container">
-        <app-button-action label="Actualizar" type="submit" [disabled]="dataProfileUpdate.invalid || loading" (action)="updatePerfilData()"></app-button-action>
+        <app-button-action label="Actualizar" type="submit" [disabled]="dataProfileUpdate.invalid || loading"
+            (action)="updatePerfilData()"></app-button-action>
     </div>
 </form>
 
