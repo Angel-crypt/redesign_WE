@@ -1,12 +1,7 @@
 <div *ngIf="maestroData as maestro" class="perfil-header">
 
-    <h3>
-        {{ maestroData.nombre }}
-        {{ maestroData.apellido_paterno }}
-        {{ maestroData.apellido_materno }} -
-        {{ maestroData.especialidad }} -
-        {{ maestroData.fecha_nacimiento | date: 'dd/MM/yyyy' }} -
-        {{ maestroData.id_usuario }}
+    <h3 class="perfil-header__nombre">
+    {{ maestro.nombre }} {{ maestro.apellido_paterno }} {{ maestro.apellido_materno }}
     </h3>
 
     <app-button-action 
