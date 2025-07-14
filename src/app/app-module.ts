@@ -21,6 +21,7 @@ import { Sidebar } from './shared/sidebar/sidebar';
 import { ButtonAction } from './shared/button-action/button-action';
 import { InputForm } from './shared/input-form/input-form';
 import { Profile } from './pages/user/profile/profile';
+import { Assignments } from './pages/user/landing/components/assignments/assignments';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { Profile } from './pages/user/profile/profile';
     Sidebar,
     ButtonAction,
     InputForm,
-    Profile
+    Profile,
+    Assignments
   ],
   imports: [
     BrowserModule,
