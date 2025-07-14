@@ -5,19 +5,19 @@ import {
   FormControl,
   Validators,
 } from '@angular/forms';
-import { ProfileService } from '../../../services/maestro/profile/profile-service';
-import { edadMinMaxValidator } from '../../../shared/validators/edad-min-max';
-import { SSidebar } from '../../../services/general/s-sidebar';
-import { Maestro } from '../../../interfaces/entities';
+import { ProfileService } from '../../../../services/maestro/profile/profile-service';
+import { edadMinMaxValidator } from '../../../../shared/validators/edad-min-max';
+import { SSidebar } from '../../../../services/general/s-sidebar';
+import { Maestro } from '../../../../interfaces/entities';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-datos-perfil',
   standalone: false,
-  templateUrl: './profile.html',
-  styleUrl: './profile.less',
+  templateUrl: './datos-perfil.html',
+  styleUrl: './datos-perfil.less',
 })
-export class Profile implements OnInit {
+export class DatosPerfil implements OnInit {
   maestroData: Maestro | null = null;
   loading: boolean = true;
   error: string | null = null;
