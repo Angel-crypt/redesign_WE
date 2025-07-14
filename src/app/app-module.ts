@@ -25,6 +25,7 @@ import { AvailabilityComponent } from './pages/user/landing/components/availabil
 import { SelectEspecialidadComponent } from './shared/select-especialidad/select-especialidad';
 import { DatosPerfil } from './pages/user/profile/datos-perfil/datos-perfil';
 import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
+import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-calendar/disponibilidad-calendar';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
     SelectEspecialidadComponent,
     DatosPerfil,
     ProfilePage,
+    DisponibilidadCalendar,
   ],
   imports: [
     BrowserModule,
