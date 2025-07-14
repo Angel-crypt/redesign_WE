@@ -21,7 +21,7 @@ import { Sidebar } from './shared/sidebar/sidebar';
 import { ButtonAction } from './shared/button-action/button-action';
 import { InputForm } from './shared/input-form/input-form';
 import { Assignments } from './pages/user/landing/components/assignments/assignments';
-import { AvailabilityComponent } from './pages/user/landing/components/availability/availability';
+import { Availability } from './pages/user/landing/components/availability/availability';
 import { SelectEspecialidadComponent } from './shared/select-especialidad/select-especialidad';
 import { DatosPerfil } from './pages/user/profile/datos-perfil/datos-perfil';
 import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
@@ -43,7 +43,7 @@ import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-cale
     ButtonAction,
     InputForm,
     Assignments,
-    AvailabilityComponent,
+    Availability,
     SelectEspecialidadComponent,
     DatosPerfil,
     ProfilePage,
