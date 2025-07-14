@@ -31,5 +31,8 @@
         <span class="error-message" *ngIf="control.errors?.['email']" [id]="'error-' + label">
             {{ label }} debe ser un correo electrónico válido
         </span>
+        <span class="error-message" *ngIf="control.errors?.['edadInvalida']" [id]="'error-' + label">
+            La edad debe estar entre 23 y 65 años
+        </span>
     </div>
 </div>
