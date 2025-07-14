@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 
-import { MaestroDashboardResponse } from '../../../interfaces/academic';
+import { MaestroDashboardResponse } from '../../../interfaces/maestro-interfaces';
 
 @Injectable({
   providedIn: 'root',
