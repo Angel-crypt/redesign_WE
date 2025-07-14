@@ -1,7 +1,7 @@
 import { ID, ISODateString, Gender, dia_semana} from './base';
 
 export interface BaseEntity {
-  id: ID;
+  id_usuario: ID;
   createdAt?: ISODateString;
   updatedAt?: ISODateString;
 }
@@ -10,7 +10,7 @@ export interface Usuario extends BaseEntity {
   nombre: string;
   apellido_paterno: string;
   apellido_materno: string;
-  fechaNacimiento?: ISODateString;
+  fecha_nacimiento?: ISODateString;
 }
 
 export interface Maestro extends Usuario {

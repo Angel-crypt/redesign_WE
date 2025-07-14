@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+
+import { MaestroProfileResponse } from '../../../interfaces/maestro-interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +13,12 @@ export class ProfileService {
   private apiVersion = 'v1';
   constructor(private http: HttpClient) { }
 
-  getPerfilData() {
+  getPerfilData(): Observable<MaestroProfileResponse> {
     const url = `${this.baseUrl}/${this.apiVersion}/maestro/profile`;
-    return this.http.get(url, { withCredentials: true }).pipe(
-      map((response: any) => response.data),
+    return this.http.get<MaestroProfileResponse>(url, { withCredentials: true }).pipe(
       catchError((error) => {
         console.error('Error fetching profile data:', error);
-        return of(null);
+        return of({} as MaestroProfileResponse);
       })
     );
   }

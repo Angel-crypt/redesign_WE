@@ -15,3 +15,6 @@ export interface MaestroEstadisticas {
 
 export interface MaestroDashboardResponse
   extends ApiResponse<MaestroEstadisticas> {}
+
+export interface MaestroProfileResponse
+  extends ApiResponse<Maestro> {}

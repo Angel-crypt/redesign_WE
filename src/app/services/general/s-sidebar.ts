@@ -13,25 +13,22 @@ export interface MenuItem {
   providedIn: 'root',
 })
 export class SSidebar {
-  private menu: MenuItem[] = [];
-  private menuSubject = new BehaviorSubject<MenuItem[]>(this.menu);
+  private menuSubject = new BehaviorSubject<MenuItem[]>([]);
+
+  setMaestroMenu() {
+    const maestroMenu: MenuItem[] = [
+      { title: 'Inicio', icon: 'home', route: '/landing' },
+      { title: 'Mi Perfil', icon: 'person', route: '/profile' },
+      { title: 'Mis Grupos', icon: 'group', route: '/groups' },
+    ];
+    this.setMenu(maestroMenu);
+  }
 
   getMenu(): Observable<MenuItem[]> {
     return this.menuSubject.asObservable();
   }
 
-  setMenu(newMenu: MenuItem[]): void {
-    this.menu = newMenu;
-    this.menuSubject.next(this.menu);
-  }
-
-  addMenuItem(item: MenuItem): void {
-    this.menu.push(item);
-    this.menuSubject.next(this.menu);
-  }
-
-  clearMenu(): void {
-    this.menu = [];
-    this.menuSubject.next(this.menu);
+  setMenu(menu: MenuItem[]) {
+    this.menuSubject.next(menu);
   }
 }

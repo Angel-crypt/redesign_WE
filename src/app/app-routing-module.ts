@@ -5,10 +5,12 @@ import { authGuard } from './services/maestro/auth/guard';
 
 // Rutas de maestro
 import { Landing } from './pages/user/landing/landing';
+import { Profile } from './pages/user/profile/profile';
 
 const routes: Routes = [
   { path: "login", component: Login },
   { path: "landing", component: Landing, canActivate: [authGuard] },
+  { path: "profile", component: Profile, canActivate: [authGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
