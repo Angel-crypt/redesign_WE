@@ -1,28 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { DisponibilidadService } from '../../../../services/maestro/profile/disponibilidad-service';
 import { Disponibilidad } from '../../../../interfaces/entities';
+import { ID } from '../../../../interfaces/base';
 import { MaestroDisponibilidadResponse } from '../../../../interfaces/maestro-interfaces';
 import moment from 'moment';
 
 interface CalendarEvent {
   title: string;
-  start: string; 
+  start: string;
   end: string;
   color: string;
+  id_disponibilidad?: ID;
 }
 
 @Component({
   selector: 'app-disponibilidad-calendar',
   standalone: false,
   templateUrl: './disponibilidad-calendar.html',
-  styleUrl: './disponibilidad-calendar.less'
+  styleUrl: './disponibilidad-calendar.less',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DisponibilidadCalendar implements OnInit {
   events: CalendarEvent[] = [];
   loading: boolean = true;
   error: string | null = null;
   hours: string[] = [];
-  constructor(private disponibilidadService: DisponibilidadService) {
+  private eventSlotCache = new Map<string, boolean>();
+  occupiedSlots: { [day: number]: { [hour: string]: CalendarEvent[] } } = {};
+
+  constructor(
+    private disponibilidadService: DisponibilidadService,
+    private cdr: ChangeDetectorRef
+  ) {
     for (let hour = 7; hour <= 20; hour++) {
       this.hours.push(`${hour}:00`);
     }
@@ -41,12 +55,14 @@ export class DisponibilidadCalendar implements OnInit {
           this.error = 'No se pudieron cargar los datos de disponibilidad';
         }
         this.loading = false;
+        this.cdr.markForCheck();
       },
       error: (err) => {
         this.error = 'Ocurrió un error al consultar la disponibilidad';
         this.loading = false;
-        console.error(err);
-      }
+        console.error('Error fetching disponibilidad:', err);
+        this.cdr.markForCheck();
+      },
     });
   }
 
@@ -58,7 +74,7 @@ export class DisponibilidadCalendar implements OnInit {
       miércoles: 3,
       jueves: 4,
       viernes: 5,
-      sábado: 6
+      sábado: 6,
     };
 
     this.events = disponibilidades.map((disp: Disponibilidad) => {
@@ -72,38 +88,78 @@ export class DisponibilidadCalendar implements OnInit {
       const startDateTime = eventDate.clone().set({
         hour: startTime.hour(),
         minute: startTime.minute(),
-        second: startTime.second()
+        second: startTime.second(),
       });
 
       const endDateTime = eventDate.clone().set({
         hour: endTime.hour(),
         minute: endTime.minute(),
-        second: endTime.second()
+        second: endTime.second(),
       });
 
-      return {
-        title: `Disponible (${disp.hora_inicio} - ${disp.hora_fin})`,
+      const event: CalendarEvent = {
+        title: `Disponible`,
         start: startDateTime.toISOString(),
         end: endDateTime.toISOString(),
-        color: 'green'
+        color: 'green',
+        id_disponibilidad:
+          typeof disp.id_disponibilidad === 'string'
+            ? parseInt(disp.id_disponibilidad, 10)
+            : disp.id_disponibilidad,
       };
+
+      // Precompute occupied slots
+      this.populateOccupiedSlots(event, dayOfWeek);
+
+      return event;
     });
+
+    this.cdr.markForCheck();
+  }
+
+  private populateOccupiedSlots(event: CalendarEvent, day: number): void {
+    const eventStart = moment(event.start);
+    const eventEnd = moment(event.end);
+    const eventStartHour = eventStart.hour();
+    const eventEndHour = eventEnd.hour();
+
+    for (let hour = eventStartHour; hour < eventEndHour; hour++) {
+      const hourKey = `${hour}:00`;
+      if (!this.occupiedSlots[day]) {
+        this.occupiedSlots[day] = {};
+      }
+      if (!this.occupiedSlots[day][hourKey]) {
+        this.occupiedSlots[day][hourKey] = [];
+      }
+      this.occupiedSlots[day][hourKey].push(event);
+    }
   }
 
   isEventInSlot(event: CalendarEvent, day: number, hour: string): boolean {
+    const cacheKey = `${event.start}-${day}-${hour}`;
+    if (this.eventSlotCache.has(cacheKey)) {
+      return this.eventSlotCache.get(cacheKey)!;
+    }
+
     const eventStart = moment(event.start);
     const eventEnd = moment(event.end);
-    const eventDay = eventStart.day(); // 0 = Sunday, 1 = Monday, etc.
+    const eventDay = eventStart.day();
     const slotHour = parseInt(hour.split(':')[0], 10);
 
     if (eventDay !== day) {
+      this.eventSlotCache.set(cacheKey, false);
       return false;
     }
 
     const eventStartHour = eventStart.hour();
     const eventEndHour = eventEnd.hour();
+    const result = slotHour >= eventStartHour && slotHour < eventEndHour;
+    this.eventSlotCache.set(cacheKey, result);
+    return result;
+  }
 
-    // Check if the slot hour is within the event's start and end hours
-    return slotHour >= eventStartHour && slotHour < eventEndHour;
+  // Helper method for template to check occupied slots
+  getEventsForSlot(day: number, hour: string): CalendarEvent[] {
+    return (this.occupiedSlots[day] && this.occupiedSlots[day][hour]) || [];
   }
 }
