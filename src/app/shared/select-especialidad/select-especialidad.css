@@ -1,0 +1,25 @@
+.select-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+.form-select {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #2e2e2e;
+  background-color: #fff;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+.input-error {
+  border-color: red;
+}
+.input-valid {
+  border-color: green;
+}
+.error-messages {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
