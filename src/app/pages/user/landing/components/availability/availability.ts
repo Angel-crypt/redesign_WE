@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Availability } from './availability.model';
 
 @Component({
   selector: 'app-availability',
-  standalone: false,
   templateUrl: './availability.html',
-  styleUrl: './availability.less'
+  styleUrls: ['./availability.less']
 })
-export class Availability {
-
+export class AvailabilityComponent {
+  @Input() disponibilidad: Availability[] = [];
+  @Input() total: number = 0;
 }
