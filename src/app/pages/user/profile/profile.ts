@@ -9,7 +9,7 @@ import { Maestro } from '../../../interfaces/entities';
   templateUrl: './profile.html',
   styleUrl: './profile.less'
 })
-export class Profile {
+export class Profile implements OnInit {
   maestroData: Maestro | null = null;
   loading: boolean = true;
   error: string | null = null;
