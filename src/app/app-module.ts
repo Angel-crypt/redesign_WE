@@ -10,7 +10,6 @@ import { App } from './app';
 import { Login } from './pages/login/login';
 import { Landing } from './pages/user/landing/landing';
 
-import { EditProfile } from './pages/user/edit-profile/edit-profile';
 import { AssignedGroups } from './pages/user/assigned-groups/assigned-groups';
 import { AdminLanding } from './pages/admin/admin-landing/admin-landing';
 import { AdminUsers } from './pages/admin/admin-users/admin-users';
@@ -21,7 +20,7 @@ import { Sidebar } from './shared/sidebar/sidebar';
 import { ButtonAction } from './shared/button-action/button-action';
 import { InputForm } from './shared/input-form/input-form';
 import { Assignments } from './pages/user/landing/components/assignments/assignments';
-import { AvailabilityComponent } from './pages/user/landing/components/availability/availability';
+import { Availability } from './pages/user/landing/components/availability/availability';
 import { SelectEspecialidadComponent } from './shared/select-especialidad/select-especialidad';
 import { DatosPerfil } from './pages/user/profile/datos-perfil/datos-perfil';
 import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
@@ -31,7 +30,6 @@ import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-cale
   declarations: [
     App,
     Login,
-    EditProfile,
     AssignedGroups,
     AdminLanding,
     AdminUsers,
@@ -43,7 +41,7 @@ import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-cale
     ButtonAction,
     InputForm,
     Assignments,
-    AvailabilityComponent,
+    Availability,
     SelectEspecialidadComponent,
     DatosPerfil,
     ProfilePage,
