@@ -22,7 +22,8 @@ import { ButtonAction } from './shared/button-action/button-action';
 import { InputForm } from './shared/input-form/input-form';
 import { Profile } from './pages/user/profile/profile';
 import { Assignments } from './pages/user/landing/components/assignments/assignments';
-import { Availability } from './pages/user/landing/components/availability/availability';
+import { AvailabilityComponent } from './pages/user/landing/components/availability/availability';
+import { SelectEspecialidadComponent } from './shared/select-especialidad/select-especialidad';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { Availability } from './pages/user/landing/components/availability/avail
     InputForm,
     Profile,
     Assignments,
-    Availability
+    AvailabilityComponent,
+    SelectEspecialidadComponent,
   ],
   imports: [
     BrowserModule,

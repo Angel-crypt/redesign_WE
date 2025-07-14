@@ -4,8 +4,7 @@ import { Assignment } from './assignment.model';
 
 @Component({
   selector: 'app-assignments',
-  standalone: true,
-  imports: [CommonModule],
+  standalone: false,
   templateUrl: './assignments.html',
   styleUrls: ['./assignments.less']
 })

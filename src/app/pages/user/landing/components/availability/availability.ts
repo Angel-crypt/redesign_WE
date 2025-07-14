@@ -4,8 +4,7 @@ import { Availability } from './availability.model';
 
 @Component({
   selector: 'app-availability',
-  standalone: true,
-  imports: [CommonModule], // habilitamos directivas como *ngFor y *ngIf
+  standalone: false,
   templateUrl: './availability.html',
   styleUrls: ['./availability.less']
 })
