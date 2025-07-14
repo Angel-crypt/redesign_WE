@@ -8,6 +8,6 @@ import { Availability as AvailabilityModel } from './availability.model';
   styleUrls: ['./availability.less']
 })
 export class Availability {
-  @Input() disponibilidad: Availability[] = [];
+  @Input() disponibilidad: AvailabilityModel[] = [];
   @Input() total: number = 0;
 }
