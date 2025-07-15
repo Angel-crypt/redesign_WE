@@ -68,7 +68,6 @@ export class DisponibilidadCalendar implements OnInit {
 
   mapDisponibilidadToEvents(disponibilidades: Disponibilidad[]): void {
     const dayMap: { [key: string]: number } = {
-      domingo: 0,
       lunes: 1,
       martes: 2,
       miércoles: 3,
@@ -77,42 +76,44 @@ export class DisponibilidadCalendar implements OnInit {
       sábado: 6,
     };
 
-    this.events = disponibilidades.map((disp: Disponibilidad) => {
-      const dayOfWeek = dayMap[disp.dia_semana.toLowerCase()];
-      const startOfWeek = moment().startOf('week');
-      const eventDate = startOfWeek.clone().add(dayOfWeek, 'days');
+    this.events = disponibilidades
+      .filter((disp) => dayMap[disp.dia_semana.toLowerCase()] !== undefined)
+      .map((disp: Disponibilidad) => {
+        const dayOfWeek = dayMap[disp.dia_semana.toLowerCase()];
+        const startOfWeek = moment().startOf('week');
+        const eventDate = startOfWeek.clone().add(dayOfWeek, 'days');
 
-      const startTime = moment(disp.hora_inicio, 'HH:mm:ss');
-      const endTime = moment(disp.hora_fin, 'HH:mm:ss');
+        const startTime = moment(disp.hora_inicio, 'HH:mm:ss');
+        const endTime = moment(disp.hora_fin, 'HH:mm:ss');
 
-      const startDateTime = eventDate.clone().set({
-        hour: startTime.hour(),
-        minute: startTime.minute(),
-        second: startTime.second(),
+        const startDateTime = eventDate.clone().set({
+          hour: startTime.hour(),
+          minute: startTime.minute(),
+          second: startTime.second(),
+        });
+
+        const endDateTime = eventDate.clone().set({
+          hour: endTime.hour(),
+          minute: endTime.minute(),
+          second: endTime.second(),
+        });
+
+        const event: CalendarEvent = {
+          title: `Disponible`,
+          start: startDateTime.toISOString(),
+          end: endDateTime.toISOString(),
+          color: 'green',
+          id_disponibilidad:
+            typeof disp.id_disponibilidad === 'string'
+              ? parseInt(disp.id_disponibilidad, 10)
+              : disp.id_disponibilidad,
+        };
+
+        // Precompute occupied slots
+        this.populateOccupiedSlots(event, dayOfWeek);
+
+        return event;
       });
-
-      const endDateTime = eventDate.clone().set({
-        hour: endTime.hour(),
-        minute: endTime.minute(),
-        second: endTime.second(),
-      });
-
-      const event: CalendarEvent = {
-        title: `Disponible`,
-        start: startDateTime.toISOString(),
-        end: endDateTime.toISOString(),
-        color: 'green',
-        id_disponibilidad:
-          typeof disp.id_disponibilidad === 'string'
-            ? parseInt(disp.id_disponibilidad, 10)
-            : disp.id_disponibilidad,
-      };
-
-      // Precompute occupied slots
-      this.populateOccupiedSlots(event, dayOfWeek);
-
-      return event;
-    });
 
     this.cdr.markForCheck();
   }
