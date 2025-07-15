@@ -10,10 +10,22 @@
     </select>
     </div>
 
-        <div class="disponibilidad-c-field">
+    <div class="disponibilidad-c-field">
     <label for="hora_inicio">Hora de Inicio</label>
     <select id="hora_inicio" formControlName="hora_inicio">
         <option value="" disabled>Selecciona una hora</option>
         <option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</option>
     </select>
     </div>
+
+    <div class="disponibilidad-c-actions">
+    <button type="submit" [disabled]="disponibilidadForm.invalid || isSubmitting">
+        Crear
+    </button>
+    </div>
+</form>
+
+  <div *ngIf="errorMessage" class="disponibilidad-c-error">
+    {{ errorMessage }}
+</div>
+</div>
