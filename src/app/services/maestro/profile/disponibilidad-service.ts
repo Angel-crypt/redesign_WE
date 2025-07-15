@@ -23,4 +23,13 @@ export class DisponibilidadService {
       })
     );
   }
+  updateDisponibilidad(data: Disponibilidad): Observable<MaestroDisponibilidadResponse> {
+    const url = `${this.baseUrl}/${this.apiVersion}/maestro/availability`;
+    return this.http.put<MaestroDisponibilidadResponse>(url, data, { withCredentials: true }).pipe(
+      catchError(error => {
+        console.error('Error updating disponibilidad:', error);
+        return of({} as MaestroDisponibilidadResponse);
+      })
+    );
+  }
 }
