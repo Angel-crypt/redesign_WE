@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SSidebar } from '../../../../services/general/s-sidebar';
 
 @Component({
   selector: 'app-profile-page',
@@ -6,6 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.less'
 })
-export class ProfilePage {
+export class ProfilePage implements OnInit {
+  constructor(private sidebarService: SSidebar) {}
+
+  ngOnInit() {
+    this.sidebarService.setMaestroMenu();
+  }
 
 }

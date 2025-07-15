@@ -8,7 +8,6 @@ import {
 } from '@angular/forms';
 import { ProfileService } from '../../../../services/maestro/profile/profile-service';
 import { edadMinMaxValidator } from '../../../../shared/validators/edad-min-max';
-import { SSidebar } from '../../../../services/general/s-sidebar';
 import { Maestro } from '../../../../interfaces/entities';
 import Swal from 'sweetalert2';
 
@@ -27,7 +26,6 @@ export class DatosPerfil implements OnInit {
 
   constructor(
     private profileService: ProfileService,
-    private sidebarService: SSidebar,
     private fb: FormBuilder,
     private cdr: ChangeDetectorRef
   ) {
@@ -80,7 +78,6 @@ export class DatosPerfil implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sidebarService.setMaestroMenu();
     this.profileService.getPerfilData().subscribe({
       next: (res) => {
         if (res.success && res.data) {
