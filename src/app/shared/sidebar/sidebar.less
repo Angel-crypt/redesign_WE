@@ -1,53 +1,49 @@
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 200px;
   height: 100vh;
   background-color: #ffffff;
-  border-right: 1px solid #ddd;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
   padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
   box-sizing: border-box;
-  z-index: 10;
 }
 
-.sidebar-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-
-.sidebar-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #4B0082;
-}
-
-.sidebar-menu {
+.menu {
   list-style: none;
   padding: 0;
   margin: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.sidebar-menu li a {
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  font-size: 1rem;
+.menu-item,
+.logout-item {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
   border-radius: 6px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #2e2e2e;
   transition: background-color 0.2s, color 0.2s;
 }
 
-.sidebar-menu li a:hover {
+// Íconos de material
+.material-icons {
+  font-size: 20px;
+}
+
+// Hover y ruta activa
+.menu-item:hover,
+.logout-item:hover,
+.menu-item.active,
+.logout-item.active {
   background-color: #4B0082;
-  color: #fff;
+  color: #ffffff;
 }
