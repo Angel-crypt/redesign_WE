@@ -3,6 +3,8 @@ import {
   Maestro,
   Asignacion,
   Disponibilidad,
+  Grupo,
+  Curso,
 } from './entities';
 
 export interface MaestroEstadisticas {
@@ -21,3 +23,6 @@ export interface MaestroProfileResponse
 
 export interface MaestroDisponibilidadResponse
   extends ApiResponse<Disponibilidad[]> { }
+
+export interface MaestroAsignacionesResponse
+  extends ApiResponse<Asignacion[]> { }
