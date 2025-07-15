@@ -1,26 +1,12 @@
-.availability-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1rem;
-}
-
 .availability-item {
   background-color: #ffffff;
   border-left: 4px solid #4B0082;
   padding: 1rem;
   border-radius: 0.5rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
 }
 
-.dia {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 0.25rem;
-}
-
-.horas {
-  font-size: 0.9rem;
-  color: #666;
+.availability-item:hover {
+  transform: translateY(-4px);
 }
