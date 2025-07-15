@@ -9,3 +9,11 @@
         <option *ngFor="let day of availableDays" [value]="day">{{ day | titlecase }}</option>
     </select>
     </div>
+
+        <div class="disponibilidad-c-field">
+    <label for="hora_inicio">Hora de Inicio</label>
+    <select id="hora_inicio" formControlName="hora_inicio">
+        <option value="" disabled>Selecciona una hora</option>
+        <option *ngFor="let hour of availableHours" [value]="hour">{{ hour }}</option>
+    </select>
+    </div>
