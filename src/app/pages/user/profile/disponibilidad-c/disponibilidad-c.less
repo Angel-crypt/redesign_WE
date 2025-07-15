@@ -2,6 +2,7 @@
 background-color: #ffffff;
 padding: 2rem;
 border-radius: 1rem;
+box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
 max-width: 600px;
 margin: 0 auto;
 }
@@ -48,4 +49,35 @@ select {
     box-shadow: 0 0 0 2px rgba(75, 0, 130, 0.15);
     }
 }
+}
+
+.disponibilidad-c-actions {
+text-align: center;
+
+button {
+    background-color: #4B0082;
+    color: #fff;
+    padding: 0.6rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+    background-color: #3a006d;
+    }
+
+    &:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    }
+}
+}
+
+.disponibilidad-c-error {
+margin-top: 1rem;
+color: #dc3545;
+text-align: center;
+font-weight: 500;
 }
