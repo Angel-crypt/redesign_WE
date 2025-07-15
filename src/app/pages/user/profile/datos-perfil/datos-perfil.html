@@ -3,74 +3,47 @@
     <h3 class="perfil-header__nombre">
       {{ maestro.nombre }} {{ maestro.apellido_paterno }} {{ maestro.apellido_materno }}
     </h3>
-    <p class="perfil-header__detalle">
-      Especialidad: {{ maestro.especialidad }}
-    </p>
-    <p class="perfil-header__detalle">
-      Fecha de nacimiento: {{ maestro.fecha_nacimiento | date: 'dd/MM/yyyy' }}
-    </p>
-    <p class="perfil-header__detalle">
-      ID de usuario: {{ maestro.id_usuario }}
-    </p>
   </div>
 
-  <app-button-action 
-    label="{{ isEditing ? 'Cancelar' : 'Editar' }}"
-    type="button"
+  <app-button-action label="{{ isEditing ? 'Cancelar' : 'Editar' }}" type="button"
     (action)="setEditingMode(!isEditing)">
   </app-button-action>
 
   <form [formGroup]="dataProfileUpdate" (ngSubmit)="updatePerfilData()">
     <div class="input-container">
       <div class="input-row">
-        <app-input-form 
-          type="text" 
-          placeholder="Nombre" 
-          value="{{ maestro.nombre }}"
+        <app-input-form type="text" placeholder="Nombre" value="{{ maestro.nombre }}"
           [control]="dataProfileUpdate.get('nombre')">
         </app-input-form>
       </div>
 
       <div class="input-row">
-        <app-input-form 
-          type="text" 
-          placeholder="Apellido Paterno" 
-          value="{{ maestro.apellido_paterno }}"
+        <app-input-form type="text" placeholder="Apellido Paterno" value="{{ maestro.apellido_paterno }}"
           [control]="dataProfileUpdate.get('apellido_paterno')">
         </app-input-form>
       </div>
 
       <div class="input-row">
-        <app-input-form 
-          type="text" 
-          placeholder="Apellido Materno" 
-          value="{{ maestro.apellido_materno }}"
+        <app-input-form type="text" placeholder="Apellido Materno" value="{{ maestro.apellido_materno }}"
           [control]="dataProfileUpdate.get('apellido_materno')">
         </app-input-form>
       </div>
 
       <div class="input-row">
-        <app-select-especialidad 
-          [control]="especialidadControl"
-          [disabled]="!isEditing">
+        <app-select-especialidad [control]="especialidadControl" [disabled]="!isEditing">
         </app-select-especialidad>
       </div>
 
       <div class="input-row">
-        <app-input-form 
-          type="date" 
-          placeholder="Fecha de Nacimiento"
+        <app-input-form type="date" placeholder="Fecha de Nacimiento"
           value="{{ maestro.fecha_nacimiento | date: 'yyyy-MM-dd' }}"
           [control]="dataProfileUpdate.get('fecha_nacimiento')">
         </app-input-form>
       </div>
     </div>
 
-    <div class="button-container">
-      <app-button-action 
-        label="Actualizar" 
-        type="submit" 
-        [disabled]="dataProfileUpdate.invalid || loading || !isEditing"
+    <div class="button-container" *ngIf="isEditing">
+      <app-button-action label="Actualizar" type="submit" [disabled]="dataProfileUpdate.invalid || loading"
         (action)="updatePerfilData()">
       </app-button-action>
     </div>

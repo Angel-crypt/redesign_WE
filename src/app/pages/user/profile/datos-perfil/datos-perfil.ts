@@ -150,6 +150,7 @@ export class DatosPerfil implements OnInit {
               confirmButtonText: 'Aceptar',
             });
             this.maestroData = res.data!;
+            this.setEditingMode(false);
           } else {
             Swal.fire({
               icon: 'error',

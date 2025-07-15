@@ -1,19 +1,29 @@
 .calendar-container {
-  padding: 20px;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
 }
-.week-view {
-  display: flex;
-  flex-direction: column;
+.calendar-container h3 {
+  text-align: center;
+  color: #4B0082;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
 }
 .day-header {
   display: flex;
   border-bottom: 1px solid #ccc;
+  background-color: #eee;
+  border-radius: 0.5rem 0.5rem 0 0;
 }
 .day {
   flex: 1;
   text-align: center;
-  padding: 10px;
-  font-weight: bold;
+  padding: 0.75rem 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
 }
 .time-slots {
   display: flex;
@@ -21,28 +31,34 @@
 }
 .hour-slot {
   display: flex;
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #e0e0e0;
+  min-height: 40px;
 }
 .hour-label {
   width: 60px;
-  padding: 10px;
+  padding: 0.5rem;
   text-align: right;
+  font-size: 0.85rem;
+  color: #555;
   border-right: 1px solid #ddd;
 }
 .day-slot {
   flex: 1;
   min-height: 40px;
   position: relative;
+  border-left: 1px solid #f0f0f0;
 }
 .event {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 5px;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  padding: 4px 6px;
   color: white;
-  font-size: 12px;
+  font-size: 0.8rem;
+  background-color: #4B0082;
+  border-radius: 0.25rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -50,9 +66,10 @@
 .loading,
 .error {
   text-align: center;
-  padding: 20px;
+  padding: 1rem;
+  font-size: 0.95rem;
   color: #666;
 }
 .error {
-  color: red;
+  color: #dc3545;
 }
