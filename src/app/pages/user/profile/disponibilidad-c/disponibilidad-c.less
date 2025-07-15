@@ -19,3 +19,33 @@ display: flex;
 flex-direction: column;
 gap: 1.25rem;
 }
+
+.disponibilidad-c-field {
+display: flex;
+flex-direction: column;
+
+label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+select {
+    padding: 0.6rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+
+    &:hover {
+    border-color: #4B0082;
+    }
+
+    &:focus {
+    border-color: #4B0082;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(75, 0, 130, 0.15);
+    }
+}
+}
