@@ -1,25 +1,22 @@
-<h2 *ngIf="maestroData?.maestro">
-    Bienvenido,
-    {{ maestroData?.maestro?.nombre }}
-    {{ maestroData?.maestro?.apellido_paterno }}
-</h2>
+<div class="landing-container" *ngIf="maestroData">
+  <h2 class="landing-title">Bienvenido, {{ maestroData.maestro.nombre }}</h2>
+  <p class="landing-subtitle">Especialidad: {{ maestroData.maestro.especialidad }}</p>
 
-<h3>Especialidad: {{ maestroData?.maestro?.especialidad }}</h3>
+  <div class="landing-section">
+    <app-assignments
+      [asignaciones]="maestroData.asignaciones"
+      [total]="maestroData.total_asignaciones">
+    </app-assignments>
+  </div>
 
-<h4>Asignaciones ({{ maestroData?.total_asignaciones }}):</h4>
-<ul>
-    <li *ngFor="let asignacion of maestroData?.asignaciones">
-        {{ asignacion.curso.nombre }} - Grupo: {{ asignacion.grupo.nombre }}
-    </li>
-</ul>
-
-<h4>Disponibilidad ({{ maestroData?.total_disponibilidad }}):</h4>
-<ul>
-    <li *ngFor="let disponibilidad of maestroData?.disponibilidad">
-        {{ disponibilidad.dia_semana }}: {{ disponibilidad.hora_inicio }} - {{ disponibilidad.hora_fin }}
-    </li>
-</ul>
+  <div class="landing-section">
+    <app-availability
+      [disponibilidad]="maestroData.disponibilidad"
+      [total]="maestroData.total_disponibilidad">
+    </app-availability>
+  </div>
+</div>
 
 <div *ngIf="!loading && error">
-    <p style="color: red;">{{ error }}</p>
+  <p class="landing-error">{{ error }}</p>
 </div>
