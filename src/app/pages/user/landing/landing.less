@@ -11,15 +11,14 @@
   z-index: -1;
 }
 
-
-
 .landing-container {
   max-width: 900px;
-  margin: 2rem auto;
+  width: 100%;
   padding: 2rem;
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.94);
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
 }
 
 .landing-title {
@@ -51,5 +50,22 @@ body, html {
   padding: 0;
   overflow: hidden;
   height: 100%;
+  width: 100%;
+}
+
+.landing-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-left: 200px; // espacio de la sidebar
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.landing-content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
 }
