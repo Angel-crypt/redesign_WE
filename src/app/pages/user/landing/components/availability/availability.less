@@ -1,21 +1,22 @@
+.availability-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
 .availability-item {
   background-color: #ffffff;
   border-left: 4px solid #4B0082;
-  padding: 1rem;
+  padding: 1.25rem;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s;
+  display: block;
 }
 
 .availability-item:hover {
   transform: translateY(-4px);
-}
-
-.availability-item {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.25rem;
 }
 
 .dia {
@@ -29,21 +30,3 @@
   font-size: 0.9rem;
   color: #666;
 }
-
-.assignment-card,
-.availability-item {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  padding: 1.25rem;
-}
-
-
-.availability-item {
-  background-color: #ffffff;
-  border-left: 4px solid #4B0082;
-  padding: 1.25rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transition: transform 0.2s;
-  display: block; // evita comportamiento flex
-}
-
