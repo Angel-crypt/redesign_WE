@@ -5,14 +5,12 @@
   border-radius: 1rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 }
-
 .profile-title {
   font-size: 2rem;
   color: #4B0082;
   margin-bottom: 2rem;
   text-align: center;
 }
-
 .profile-section {
   margin-bottom: 2.5rem;
 }
