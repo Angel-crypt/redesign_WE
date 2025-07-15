@@ -1,14 +1,13 @@
-<div class="sidebar">
-    <ul class="menu">
-        <!-- Dynamic menu items -->
-        <li *ngFor="let item of menuItems" class="menu-item" (click)="handleMenuItem(item)">
-            <span *ngIf="item.icon" class="material-icons">{{ item.icon }}</span>
-            <span class="menu-title">{{ item.title }}</span>
-        </li>
-        <li class="menu-separator"></li>
-        <li class="logout-item" (click)="handleMenuItem(logoutItem)">
-            <span class="material-icons">{{ logoutItem.icon }}</span>
-            <span class="menu-title">{{ logoutItem.title }}</span>
-        </li>
-    </ul>
+<nav class="sidebar">
+<div class="sidebar-header">
+    <h1 class="sidebar-title">Mi Panel</h1>
 </div>
+
+<ul class="sidebar-menu">
+    <li><a routerLink="/inicio"><span>🏠</span> Inicio</a></li>
+    <li><a routerLink="/perfil"><span>👤</span> Perfil</a></li>
+    <li><a routerLink="/asignaciones"><span>📚</span> Asignaciones</a></li>
+    <li><a routerLink="/disponibilidad"><span>🗓️</span> Disponibilidad</a></li>
+    <li><a routerLink="/logout"><span>🚪</span> Cerrar sesión</a></li>
+</ul>
+</nav>
