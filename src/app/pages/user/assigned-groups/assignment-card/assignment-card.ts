@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Asignacion } from '../../../../interfaces/entities';
 import { GruposService } from '../../../../services/maestro/asignaciones/grupos';
+import { PlaneacionS } from '../../../../services/maestro/planeacion/planeacion-s';
 import { Observable } from 'rxjs';
 
 interface Estudiante {
@@ -24,6 +25,9 @@ export class AssignmentCard {
   students: Estudiante[] = [];
   loadingStudents: boolean = false;
   errorMessage: string | null = null;
+  selectedFile: File | null = null;
+  showUploadForm: boolean = false;
+  isUploading: boolean = false;
 
   private colorPalette: string[] = [
     '#4CAF50',
@@ -36,7 +40,10 @@ export class AssignmentCard {
     '#8BC34A',
   ];
 
-  constructor(private gruposService: GruposService) {}
+  constructor(
+    private gruposService: GruposService,
+    private planeacionService: PlaneacionS
+  ) {}
 
   private hashString(str: string): number {
     let hash = 0;
@@ -91,5 +98,62 @@ export class AssignmentCard {
     if (url) {
       window.open(url, '_blank');
     }
+  }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
+      this.selectedFile = file;
+    } else {
+      alert('Por favor selecciona un archivo PDF válido');
+      this.selectedFile = null;
+    }
+  }
+
+  uploadPdf() {
+    if (!this.selectedFile) {
+      alert('Por favor selecciona un archivo PDF');
+      return;
+    }
+
+    this.isUploading = true;
+
+    // Asumiendo que tienes el ID del assignment
+    const assignmentId = this.assignment.id_asignacion;
+
+    this.planeacionService
+      .uploadPdfFile(Number(assignmentId), this.selectedFile)
+      .subscribe({
+      next: (response) => {
+        console.log('PDF subido exitosamente:', response);
+
+        this.assignment.tiene_planeacion = true;
+        this.assignment.planeacion_pdf_url = response.pdf_url;
+
+        this.resetUploadForm();
+
+        alert('PDF subido exitosamente');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      },
+      error: (error) => {
+        console.error('Error al subir PDF:', error);
+        alert('Error al subir el archivo. Intenta nuevamente.');
+        this.isUploading = false;
+      },
+      });
+  }
+
+  // Cancelar subida
+  cancelUpload() {
+    this.resetUploadForm();
+  }
+
+  // Resetear formulario
+  private resetUploadForm() {
+    this.selectedFile = null;
+    this.showUploadForm = false;
+    this.isUploading = false;
   }
 }

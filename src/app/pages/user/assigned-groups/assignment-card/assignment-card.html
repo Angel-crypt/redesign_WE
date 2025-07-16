@@ -18,13 +18,41 @@
     </div>
 
     <div class="planeacion-section">
-        <div  *ngIf="assignment.tiene_planeacion" class="planeacion-available">
+        <!-- Cuando ya tiene planeación -->
+        <div *ngIf="assignment.tiene_planeacion" class="planeacion-available">
             <button (click)="openPlaneacion(assignment.planeacion_pdf_url)" class="pdf-link planeacion-button">
                 Ver Planeación
             </button>
+            <button (click)="showUploadForm = true" class="upload-button">
+                Actualizar PDF
+            </button>
         </div>
+    
+        <!-- Cuando no tiene planeación -->
         <div *ngIf="!assignment.tiene_planeacion" class="no-planeacion">
-            Sin planeación disponible
+            <p>Sin planeación disponible</p>
+            <button (click)="showUploadForm = true" class="upload-button">
+                Subir Planeación
+            </button>
+        </div>
+    
+        <!-- Formulario para subir archivo -->
+        <div *ngIf="showUploadForm" class="upload-form">
+            <input type="file" accept=".pdf" (change)="onFileSelected($event)" #fileInput class="file-input">
+    
+            <div class="upload-actions">
+                <button (click)="uploadPdf()" [disabled]="!selectedFile || isUploading" class="submit-button">
+                    {{ isUploading ? 'Subiendo...' : 'Subir PDF' }}
+                </button>
+                <button (click)="cancelUpload()" class="cancel-button">
+                    Cancelar
+                </button>
+            </div>
+    
+            <!-- Mostrar nombre del archivo seleccionado -->
+            <div *ngIf="selectedFile" class="selected-file">
+                Archivo seleccionado: {{ selectedFile.name }}
+            </div>
         </div>
     </div>
 
