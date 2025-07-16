@@ -1,22 +1,22 @@
 <div class="landing-wrapper">
   <div class="landing-content-wrapper">
-    <div class="landing-container" *ngIf="maestroData">
+    <div class="landing-container" *ngIf="maestroData && !loading; else loadingTemplate">
       <h2 class="landing-title">Bienvenido(a), {{ maestroData.maestro.nombre }}</h2>
-      <p class="landing-subtitle">Especialidad: {{ maestroData.maestro.especialidad }}</p>
 
       <div class="landing-section">
-        <app-assignments
-          [asignaciones]="maestroData.asignaciones"
-          [total]="maestroData.total_asignaciones">
+        <app-assignments [asignaciones]="maestroData.asignaciones" [total]="maestroData.total_asignaciones">
         </app-assignments>
       </div>
 
       <div class="landing-section">
-        <app-availability
-          [disponibilidad]="maestroData.disponibilidad"
-          [total]="maestroData.total_disponibilidad">
+        <app-availability [disponibilidad]="maestroData.disponibilidad">
         </app-availability>
       </div>
     </div>
+
+    <ng-template #loadingTemplate>
+      <div *ngIf="loading" class="loading">Cargando...</div>
+      <div *ngIf="error" class="error">{{ error }}</div>
+    </ng-template>
   </div>
 </div>

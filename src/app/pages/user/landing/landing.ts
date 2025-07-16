@@ -20,8 +20,8 @@ export class Landing implements OnInit {
     this.sidebarService.setMaestroMenu();
     this.statsService.getLandingData().subscribe({
       next: (res) => {
-        if (res.success) {
-          this.maestroData = res.data!;
+        if (res.success && res.data) {
+          this.maestroData = res.data;
         } else {
           this.error = 'No se pudieron cargar los datos';
         }
