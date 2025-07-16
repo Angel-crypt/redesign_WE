@@ -31,7 +31,7 @@ export interface Curso extends BaseEntity {
 
 export interface Grupo extends BaseEntity {
   id_grupo: ID;
-  nombre: string;
+  nombre_grupo: string;
   facultad?: string;
   generacion?: string;
 }
