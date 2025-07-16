@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GruposService } from '../../../services/maestro/asignaciones/grupos';
-import { Asignacion } from '../../../interfaces/entities';
+import { Asignacion, Grupo } from '../../../interfaces/entities';
 import { SSidebar } from '../../../services/general/s-sidebar';
 
 @Component({
@@ -16,19 +16,17 @@ export class AssignedGroups implements OnInit {
 
   ngOnInit(): void {
     this.sidebarService.setMaestroMenu();
-      this.gruposService.getAllAsignaciones().subscribe({
-        next: (response) => {
-          if (response.success) {
-            this.assignedGroups = response.data ?? [];
-            console.log('Assigned Groups Length:', this.assignedGroups);
-            this.loading = false;
-          }
-        },
-        error: (err) => {
-          console.error('Error fetching assigned groups:', err);
+    this.gruposService.getAllAsignaciones().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.assignedGroups = response.data ?? [];
           this.loading = false;
         }
-      });
+      },
+      error: (err) => {
+        console.error('Error fetching assigned groups:', err);
+        this.loading = false;
+      },
+    });
   }
-
 }

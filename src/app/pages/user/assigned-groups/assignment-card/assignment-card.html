@@ -1,4 +1,4 @@
-<div class="assignment-card">
+<div class="assignment-card" [ngStyle]="{'border-color': getGroupColor()}">
     <div class="group-header">
         <h3>{{assignment.curso.codigo}} - {{assignment.curso.descripcion}}</h3>
         <span class="students-count">{{assignment.total_estudiantes}} estudiantes</span>
@@ -13,18 +13,40 @@
     <div class="horarios-section" *ngIf="(assignment.horarios?.length ?? 0) > 0">
         <h4>Horarios:</h4>
         <div class="horario-item" *ngFor="let horario of assignment.horarios">
-            <span>{{horario.dia_semana}}: {{horario.hora_inicio}} - {{horario.hora_fin}}</span>
+            <span>{{horario.dia_semana | titlecase}}: {{horario.hora_inicio}} - {{horario.hora_fin}}</span>
         </div>
     </div>
 
     <div class="planeacion-section">
-        <div *ngIf="assignment.tiene_planeacion" class="planeacion-available">
-            <a [href]="assignment.planeacion_pdf_url" target="_blank" class="pdf-link">
-                Ver Planeación (PDF)
-            </a>
+        <div  *ngIf="assignment.tiene_planeacion" class="planeacion-available">
+            <button (click)="openPlaneacion(assignment.planeacion_pdf_url)" class="pdf-link planeacion-button">
+                Ver Planeación
+            </button>
         </div>
         <div *ngIf="!assignment.tiene_planeacion" class="no-planeacion">
             Sin planeación disponible
+        </div>
+    </div>
+
+    <div class="students-section">
+        <button class="students-button" (click)="toggleStudentList()">
+            {{ showStudents ? 'Ocultar Lista de Estudiantes' : 'Lista de Estudiantes' }}
+        </button>
+        <div class="loading-students" *ngIf="loadingStudents">
+            Cargando estudiantes...
+        </div>
+        <div class="error-message" *ngIf="errorMessage && !loadingStudents">
+            {{ errorMessage }}
+        </div>
+        <div class="students-list" *ngIf="showStudents && students.length > 0 && !loadingStudents">
+            <h4>Estudiantes:</h4>
+            <div class="student-item" *ngFor="let student of students">
+                <span>{{ student.nombre }} {{ student.apellido_paterno }} {{ student.apellido_materno }} ({{
+                    student.id_alumno }})</span>
+            </div>
+        </div>
+        <div class="no-students" *ngIf="showStudents && students.length === 0 && !loadingStudents && !errorMessage">
+            No hay estudiantes registrados.
         </div>
     </div>
 </div>

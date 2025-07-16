@@ -24,4 +24,15 @@ export class GruposService {
         })
       );
   }
+
+  getDetallesGrupo(idGrupo: string): Observable<any> {
+    const url = `${this.baseUrl}/${this.apiVersion}/maestro/groups/${idGrupo}/details`;
+    return this.http.get<any>(url, { withCredentials: true })
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching group details:', error);
+          throw error;
+        })
+      );
+  }
 }
