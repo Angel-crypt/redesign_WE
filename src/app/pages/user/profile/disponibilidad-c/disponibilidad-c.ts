@@ -41,15 +41,14 @@ export class DisponibilidadC implements OnInit, OnDestroy {
     (_, i) => `${(i + 7).toString().padStart(2, '0')}:00`
   );
 
-  // Constantes para validación
-  private readonly MIN_HOUR = 7;
-  private readonly MAX_HOUR = 20;
-
   constructor(
     private disponibilidadService: DisponibilidadService,
     private fb: FormBuilder
   ) {
-    this.disponibilidadForm = this.createForm();
+    this.disponibilidadForm = this.fb.group({
+      dia_semana: ['', Validators.required],
+      hora_inicio: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
@@ -61,13 +60,6 @@ export class DisponibilidadC implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  private createForm(): FormGroup {
-    return this.fb.group({
-      dia_semana: ['', Validators.required],
-      hora_inicio: ['', Validators.required],
-    });
-  }
-
   get endTime(): string {
     const startTime = this.disponibilidadForm.get('hora_inicio')?.value;
     if (!startTime) return '';
@@ -76,8 +68,8 @@ export class DisponibilidadC implements OnInit, OnDestroy {
     return `${(hour + 1).toString().padStart(2, '0')}:00`;
   }
 
-  get isFormValid(): boolean {
-    return this.disponibilidadForm.valid && !this.isSubmitting;
+  get f() {
+    return this.disponibilidadForm.controls;
   }
 
   private loadExistingDisponibilidades(): void {
@@ -97,7 +89,8 @@ export class DisponibilidadC implements OnInit, OnDestroy {
         error: (error) => {
           this.errorMessage = 'Error al cargar las disponibilidades existentes';
           console.error('Error loading availabilities:', error);
-          this.showErrorAlert(
+          this.showAlert(
+            'error',
             'Error de carga',
             'No se pudieron cargar las disponibilidades existentes'
           );
@@ -105,52 +98,39 @@ export class DisponibilidadC implements OnInit, OnDestroy {
       });
   }
 
-  private isValidHour(hour: number): boolean {
-    return hour >= this.MIN_HOUR && hour < this.MAX_HOUR;
-  }
+  private validateForm(formValue: any): string | null {
+    const hour = parseInt(formValue.hora_inicio.split(':')[0], 10);
 
-  private hasTimeConflict(diaSemana: string, horaInicio: string): boolean {
-    return this.existingDisponibilidades.some(
-      (d) => d.dia_semana === diaSemana && d.hora_inicio === horaInicio
-    );
-  }
-
-  private validateFormData(formValue: any): string | null {
-    const [hours] = formValue.hora_inicio.split(':');
-    const hourNumber = parseInt(hours, 10);
-
-    if (!this.isValidHour(hourNumber)) {
-      return `La disponibilidad debe estar entre ${this.MIN_HOUR}:00 y ${this.MAX_HOUR}:00`;
+    if (hour < 7 || hour >= 20) {
+      return 'La disponibilidad debe estar entre 7:00 y 20:00';
     }
 
-    if (this.hasTimeConflict(formValue.dia_semana, formValue.hora_inicio)) {
+    if (
+      this.existingDisponibilidades.some(
+        (d) =>
+          d.dia_semana === formValue.dia_semana &&
+          d.hora_inicio === formValue.hora_inicio
+      )
+    ) {
       return 'Este horario ya está ocupado';
     }
 
     return null;
   }
 
-  private showErrorAlert(title: string, text: string): void {
+  private showAlert(
+    icon: 'success' | 'error',
+    title: string,
+    text: string,
+    callback?: () => void
+  ): void {
     Swal.fire({
-      icon: 'error',
+      icon,
       title,
       text,
-      confirmButtonText: 'Entendido',
-    });
-  }
-
-  private showSuccessAlert(): void {
-    Swal.fire({
-      icon: 'success',
-      title: 'Disponibilidad creada',
-      text: 'Tu horario se ha registrado exitosamente.',
-      confirmButtonText: 'Aceptar',
+      confirmButtonText: icon === 'success' ? 'Aceptar' : 'Entendido',
     }).then(() => {
-      this.resetForm();
-      this.loadExistingDisponibilidades();
-      setTimeout(() => {
-        window.location.reload();
-      }, 300);
+      if (callback) callback();
     });
   }
 
@@ -163,7 +143,7 @@ export class DisponibilidadC implements OnInit, OnDestroy {
     event.preventDefault();
     event.stopPropagation();
 
-    if (!this.isFormValid) {
+    if (!this.disponibilidadForm.valid || this.isSubmitting) {
       return;
     }
 
@@ -171,23 +151,20 @@ export class DisponibilidadC implements OnInit, OnDestroy {
     this.errorMessage = null;
 
     const formValue = this.disponibilidadForm.value;
+    const validationError = this.validateForm(formValue);
 
-    // Validación de datos
-    const validationError = this.validateFormData(formValue);
     if (validationError) {
       this.errorMessage = validationError;
       this.isSubmitting = false;
       return;
     }
 
-    // Crear disponibilidad
     const disponibilidad: Disponibilidad = {
       dia_semana: formValue.dia_semana,
       hora_inicio: formValue.hora_inicio,
       hora_fin: this.endTime,
     };
 
-    // Llamada al servicio
     this.disponibilidadService
       .createDisponibilidad(disponibilidad)
       .pipe(
@@ -195,44 +172,45 @@ export class DisponibilidadC implements OnInit, OnDestroy {
         catchError((error) => {
           console.error('Error creating disponibilidad:', error);
 
-          let errorMsg =
+          const errorMessages = {
+            409: 'Este horario ya está ocupado. Por favor elige otro.',
+            400: 'Los datos enviados no son válidos. Revisa la información.',
+            500: 'Error interno del servidor. Intenta más tarde.',
+          };
+
+          const errorMsg =
+            errorMessages[(error?.status as 400 | 409 | 500)] ||
             'Ocurrió un error al crear la disponibilidad. Intenta más tarde.';
-
-          if (error?.status === 409) {
-            errorMsg = 'Este horario ya está ocupado. Por favor elige otro.';
-          } else if (error?.status === 400) {
-            errorMsg =
-              'Los datos enviados no son válidos. Revisa la información.';
-          } else if (error?.status === 500) {
-            errorMsg = 'Error interno del servidor. Intenta más tarde.';
-          }
-
-          this.showErrorAlert('No se pudo crear la disponibilidad', errorMsg);
+          this.showAlert(
+            'error',
+            'No se pudo crear la disponibilidad',
+            errorMsg
+          );
           return of(null);
         }),
         finalize(() => (this.isSubmitting = false))
       )
       .subscribe({
         next: (response) => {
-          if (response !== null && response !== undefined) {
-            this.showSuccessAlert();
+          if (response) {
+            this.showAlert(
+              'success',
+              'Disponibilidad creada',
+              'Tu horario se ha registrado exitosamente.',
+              () => {
+                this.resetForm();
+                this.loadExistingDisponibilidades();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
+              }
+            );
           }
-        },
-        error: (error) => {
-          console.error('Unhandled error:', error);
-          this.showErrorAlert(
-            'Error inesperado',
-            'Ha ocurrido un error inesperado'
-          );
         },
       });
   }
 
   onReset(): void {
     this.resetForm();
-  }
-
-  get f() {
-    return this.disponibilidadForm.controls;
   }
 }
