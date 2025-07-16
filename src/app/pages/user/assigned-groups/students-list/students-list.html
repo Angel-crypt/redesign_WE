@@ -56,10 +56,14 @@
                             <td class="student-id">{{ studentControl.value.id_alumno }}</td>
                             <td class="grade-cell" *ngFor="let parcial of gradeColumns">
                                 <div class="grade-input-container" formGroupName="grades">
-                                    <input type="number" class="grade-input" [formControlName]="parcial"
-                                        [disabled]="isGradeFieldDisabled(parcial)"
+                                    <input type="number" [formControlName]="parcial"
+                                        [class]="getGradeInputClasses(studentControl.value.id_alumno, parcial)"
+                                        [title]="getGradeInputTooltip(studentControl.value.id_alumno, parcial)"
                                         [ngClass]="{ 'invalid': studentControl.get('grades.' + parcial)?.invalid && studentControl.get('grades.' + parcial)?.touched }"
                                         placeholder="0-10" min="0" max="10" step="0.1">
+                                    <div class="grade-indicator" *ngIf="isGradeLoadedFromDatabase(studentControl.value.id_alumno, parcial) && canEditGrade(parcial)">
+                                        <span class="loaded-badge">gda.</span>
+                                    </div>
                                     <div class="input-validation"
                                         *ngIf="studentControl.get('grades.' + parcial)?.invalid && studentControl.get('grades.' + parcial)?.touched">
                                         <span class="validation-message">Calificación inválida</span>
