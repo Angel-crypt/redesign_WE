@@ -20,7 +20,6 @@ interface GradeAvailability {
 export class StudentsSection implements OnInit, OnDestroy {
   @Input() assignment!: Asignacion;
 
-  // Component state
   isExpanded = false;
   isLoadingStudents = false;
   isLoadingAvailability = false;
@@ -29,11 +28,10 @@ export class StudentsSection implements OnInit, OnDestroy {
   errorMessage: string | null = null;
   successMessage: string | null = null;
 
-  // Form and grade management
   studentsForm: FormGroup;
-  gradeColumns = ['1', '2', '3']; // Parcial numbers
+  gradeColumns = ['1', '2', '3'];
   gradeAvailability: { [key: string]: GradeAvailability } = {};
-  loadedGrades: Set<string> = new Set(); // Track loaded grades in format 'studentId-parcial'
+  loadedGrades: Set<string> = new Set();
 
   private destroy$ = new Subject<void>();
 
@@ -87,7 +85,7 @@ export class StudentsSection implements OnInit, OnDestroy {
           if (response.success && response.data?.estudiantes) {
             this.students = response.data.estudiantes;
             this.initializeStudentsForm();
-            this.loadGrades();  // Load existing grades after students are initialized.
+            this.loadGrades();
           } else {
             this.errorMessage =
               'No se encontraron estudiantes para este grupo.';
@@ -107,33 +105,26 @@ export class StudentsSection implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (response) => {
-            console.log('Grades API response:', response); // Debug log
             this.patchGradesToForm(response, parcial);
           },
           error: (err) => {
-            console.error('Error loading grades:', err);
-            this.errorMessage = 'Error al cargar calificaciones.';
+            console.error(`Error al cargar las calificaciones para el parcial ${parcial}:`, err);
           },
         });
     });
   }
 
   private patchGradesToForm(response: any, parcial: string) {
-    // Handle different response structures
     let calificaciones: any[] = [];
     
     if (Array.isArray(response)) {
-      // Response is directly an array
       calificaciones = response;
     } else if (response && response.data && Array.isArray(response.data)) {
-      // Response has data property containing array
       calificaciones = response.data;
     } else if (response && response.calificaciones && Array.isArray(response.calificaciones)) {
-      // Response has calificaciones property containing array
       calificaciones = response.calificaciones;
     } else {
-      // Response structure is unknown or empty
-      console.warn('Unknown response structure for calificaciones:', response);
+      console.warn('Estructura de respuesta desconocida para calificaciones:', response);
       return;
     }
 
@@ -161,7 +152,7 @@ export class StudentsSection implements OnInit, OnDestroy {
         apellido_materno: [student.apellido_materno],
         grades: this.fb.group({
           '1': new FormControl({
-            value: null,
+            value: 'null',
             disabled: this.isGradeFieldDisabled('1')
           }, [
             Validators.min(0),
@@ -193,6 +184,18 @@ export class StudentsSection implements OnInit, OnDestroy {
     this.studentsForm.setControl('students', studentsArray);
   }
 
+  public getGradeValue(studentId: string, parcial: string): number | null {
+    const studentControl = this.studentsFormArray.controls.find(
+      (control) => control.get('id_alumno')?.value === studentId
+    );
+      if (!studentControl) {
+        return null;
+      } else if (!studentControl.get(`grades.${parcial}`)) {
+        return null;
+      }
+    return studentControl.get(`grades.${parcial}`)?.value;
+  }
+
   private checkGradeAvailability() {
     if (!this.assignment?.id_asignacion) {
       return;
@@ -211,7 +214,7 @@ export class StudentsSection implements OnInit, OnDestroy {
               message: response.message,
             };
             this.isLoadingAvailability = false;
-            this.updateFormControlStates(); // Update form control states after availability check
+            this.updateFormControlStates();
           },
           error: (error) => {
             console.error(
@@ -224,7 +227,7 @@ export class StudentsSection implements OnInit, OnDestroy {
                 error.error?.error || 'Error al verificar disponibilidad',
             };
             this.isLoadingAvailability = false;
-            this.updateFormControlStates(); // Update form control states after availability check
+            this.updateFormControlStates();
           },
         });
     });
@@ -274,8 +277,8 @@ export class StudentsSection implements OnInit, OnDestroy {
         next: (response) => {
           this.successMessage = `Calificaciones del Parcial ${parcial} guardadas exitosamente. Se procesaron ${gradesData.length} calificaciones.`;
           this.clearGradesForParcial(parcial);
-          this.checkGradeAvailability(); // Refresh availability
-          this.loadGrades(); // Reload grades to show updated data
+          this.checkGradeAvailability();
+          this.loadGrades();
         },
         error: (error) => {
           console.error(`Error saving grades for parcial ${parcial}:`, error);
@@ -307,9 +310,9 @@ export class StudentsSection implements OnInit, OnDestroy {
   private clearGradesForParcial(parcial: string) {
     this.studentsFormArray.controls.forEach((studentControl) => {
       const studentId = studentControl.get('id_alumno')?.value;
-      studentControl.get(`grades.${parcial}`)?.setValue(null);
-      // Remove from loaded grades tracking
-      this.loadedGrades.delete(`${studentId}-${parcial}`);
+      if (!this.isGradeLoadedFromDatabase(studentId, parcial)) {
+        studentControl.get(`grades.${parcial}`)?.setValue('null');
+      }
     });
   }
 
@@ -330,12 +333,10 @@ export class StudentsSection implements OnInit, OnDestroy {
     this.successMessage = null;
   }
 
-  // Helper method to check if a grade was loaded from the database
   isGradeLoadedFromDatabase(studentId: string, parcial: string): boolean {
     return this.loadedGrades.has(`${studentId}-${parcial}`);
   }
 
-  // Helper method to get CSS classes for grade input field
   getGradeInputClasses(studentId: string, parcial: string): string {
     const isLoaded = this.isGradeLoadedFromDatabase(studentId, parcial);
     const isActive = this.canEditGrade(parcial);
@@ -356,7 +357,6 @@ export class StudentsSection implements OnInit, OnDestroy {
     return classes;
   }
 
-  // Helper method to get tooltip text for grade input
   getGradeInputTooltip(studentId: string, parcial: string): string {
     const isLoaded = this.isGradeLoadedFromDatabase(studentId, parcial);
     const baseTooltip = this.getGradeTooltip(parcial);
@@ -368,7 +368,6 @@ export class StudentsSection implements OnInit, OnDestroy {
     return baseTooltip;
   }
 
-  // Method to update form control states dynamically
   private updateFormControlStates() {
     this.studentsFormArray.controls.forEach((studentControl) => {
       this.gradeColumns.forEach((parcial) => {

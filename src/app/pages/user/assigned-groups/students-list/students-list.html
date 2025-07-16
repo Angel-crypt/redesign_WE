@@ -62,7 +62,7 @@
                                         [ngClass]="{ 'invalid': studentControl.get('grades.' + parcial)?.invalid && studentControl.get('grades.' + parcial)?.touched }"
                                         placeholder="0-10" min="0" max="10" step="0.1">
                                     <div class="grade-indicator" *ngIf="isGradeLoadedFromDatabase(studentControl.value.id_alumno, parcial) && canEditGrade(parcial)">
-                                        <span class="loaded-badge">gda.</span>
+                                        <span class="loaded-badge">gda</span>
                                     </div>
                                     <div class="input-validation"
                                         *ngIf="studentControl.get('grades.' + parcial)?.invalid && studentControl.get('grades.' + parcial)?.touched">
