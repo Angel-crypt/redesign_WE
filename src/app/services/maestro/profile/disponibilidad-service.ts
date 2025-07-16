@@ -51,4 +51,20 @@ export class DisponibilidadService {
         })
       );
   }
+
+  deleteDisponibilidad(id: number): Observable<MaestroDisponibilidadResponse> {
+    const url = `${this.baseUrl}/${this.apiVersion}/maestro/availability`;
+    const body = { id_disponibilidad: id };
+
+    return this.http
+      .delete<MaestroDisponibilidadResponse>(url, {
+        body,
+        withCredentials: true,
+      })
+      .pipe(
+        catchError((error) => {
+          return throwError(() => error);
+        })
+      );
+  }
 }
