@@ -57,6 +57,11 @@ export class CalificacionesC implements OnInit {
     }
 
     this.isLoading = true;
+    console.log('Subiendo calificaciones:', {
+      id_asignacion: this.id_asignacion,
+      numero_parcial: this.numero_parcial,
+      calificaciones: this.calificaciones,
+    });
 
     this.calificacionesService
       .uploadCalificaciones(
