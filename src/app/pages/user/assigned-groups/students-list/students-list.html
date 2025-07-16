@@ -1,0 +1,100 @@
+<div class="students-section">
+    <div class="section-header">
+        <button class="toggle-button" (click)="toggleStudentsSection()" [ngClass]="{ expanded: isExpanded }">
+            <span class="title">{{ isExpanded ? 'Ocultar' : 'Mostrar' }} Lista de Estudiantes</span>
+            <span class="badge" *ngIf="students?.length">{{ students.length }}</span>
+        </button>
+
+        <button class="refresh-button" (click)="refreshAvailability()" [disabled]="isLoadingAvailability"
+            title="Actualizar disponibilidad de calificaciones">
+            <span class="refresh-text">Actualizar</span>
+        </button>
+    </div>
+
+    <div class="loading-container" *ngIf="isLoadingStudents">
+        <div class="spinner"></div>
+        <p>Cargando estudiantes...</p>
+    </div>
+
+    <div class="alert alert-error" *ngIf="errorMessage">
+        <span class="alert-text">{{ errorMessage }}</span>
+        <button class="alert-dismiss" (click)="dismissMessage()">×</button>
+    </div>
+
+    <div class="alert alert-success" *ngIf="successMessage">
+        <span class="alert-text">{{ successMessage }}</span>
+        <button class="alert-dismiss" (click)="dismissMessage()">×</button>
+    </div>
+
+    <div class="table-container" *ngIf="isExpanded && students?.length && !isLoadingStudents">
+        <form [formGroup]="studentsForm" class="students-form">
+            <div class="table-wrapper">
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th class="student-name-col">Nombre del Estudiante</th>
+                            <th class="student-id-col">ID Alumno</th>
+                            <th class="grade-col" *ngFor="let parcial of gradeColumns">
+                                <div class="grade-header">
+                                    <span class="parcial-title">Parcial {{ parcial }}</span>
+                                    <div class="availability-indicator">
+                                        <span class="status-dot" [ngClass]="{
+                            'available': canEditGrade(parcial),
+                            'unavailable': !canEditGrade(parcial),
+                            'loading': isLoadingAvailability
+                          }" [title]="getGradeTooltip(parcial)">
+                                        </span>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody formArrayName="students">
+                        <tr class="student-row" *ngFor="let studentControl of studentsFormArray.controls; let i = index"
+                            [formGroupName]="i">
+                            <td class="student-name">{{ getStudentFullName(studentControl.value) }}</td>
+                            <td class="student-id">{{ studentControl.value.id_alumno }}</td>
+                            <td class="grade-cell" *ngFor="let parcial of gradeColumns">
+                                <div class="grade-input-container" formGroupName="grades">
+                                    <input type="number" class="grade-input" [formControlName]="parcial"
+                                        [disabled]="isGradeFieldDisabled(parcial)"
+                                        [ngClass]="{ 'invalid': studentControl.get('grades.' + parcial)?.invalid && studentControl.get('grades.' + parcial)?.touched }"
+                                        placeholder="0-10" min="0" max="10" step="0.1">
+                                    <div class="input-validation"
+                                        *ngIf="studentControl.get('grades.' + parcial)?.invalid && studentControl.get('grades.' + parcial)?.touched">
+                                        <span class="validation-message">Calificación inválida</span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+        <div class="action-buttons">
+            <div class="parcial-actions" *ngFor="let parcial of gradeColumns">
+                <button class="save-button" [ngClass]="{
+                  'primary': canEditGrade(parcial),
+                  'disabled': !canEditGrade(parcial)
+                }" [disabled]="!canEditGrade(parcial) || !hasValidGrades(parcial) || isSavingGrades"
+                    (click)="saveGrades(parcial)">
+                    <span class="button-content">
+                        <span class="spinner" *ngIf="isSavingGrades"></span>
+                        <span class="button-text">
+                            {{ isSavingGrades ? 'Guardando...' : 'Guardar Parcial ' + parcial }}
+                        </span>
+                    </span>
+                    <span class="grade-count" *ngIf="hasValidGrades(parcial)">
+                        ({{ getGradesForParcial(parcial).length }})
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" *ngIf="isExpanded && !students?.length && !isLoadingStudents && !errorMessage">
+        <p class="empty-title">No hay estudiantes registrados</p>
+        <p class="empty-subtitle">Este grupo no tiene estudiantes asignados actualmente.</p>
+    </div>
+</div>

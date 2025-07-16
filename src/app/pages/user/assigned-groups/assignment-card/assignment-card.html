@@ -18,7 +18,6 @@
     </div>
 
     <div class="planeacion-section">
-        <!-- Cuando ya tiene planeación -->
         <div *ngIf="assignment.tiene_planeacion" class="planeacion-available">
             <button (click)="openPlaneacion(assignment.planeacion_pdf_url)" class="pdf-link planeacion-button">
                 Ver Planeación
@@ -28,7 +27,6 @@
             </button>
         </div>
     
-        <!-- Cuando no tiene planeación -->
         <div *ngIf="!assignment.tiene_planeacion" class="no-planeacion">
             <p>Sin planeación disponible</p>
             <button (click)="showUploadForm = true" class="upload-button">
@@ -36,7 +34,6 @@
             </button>
         </div>
     
-        <!-- Formulario para subir archivo -->
         <div *ngIf="showUploadForm" class="upload-form">
             <input type="file" accept=".pdf" (change)="onFileSelected($event)" #fileInput class="file-input">
     
@@ -49,32 +46,11 @@
                 </button>
             </div>
     
-            <!-- Mostrar nombre del archivo seleccionado -->
             <div *ngIf="selectedFile" class="selected-file">
                 Archivo seleccionado: {{ selectedFile.name }}
             </div>
         </div>
     </div>
 
-    <div class="students-section">
-        <button class="students-button" (click)="toggleStudentList()">
-            {{ showStudents ? 'Ocultar Lista de Estudiantes' : 'Lista de Estudiantes' }}
-        </button>
-        <div class="loading-students" *ngIf="loadingStudents">
-            Cargando estudiantes...
-        </div>
-        <div class="error-message" *ngIf="errorMessage && !loadingStudents">
-            {{ errorMessage }}
-        </div>
-        <div class="students-list" *ngIf="showStudents && students.length > 0 && !loadingStudents">
-            <h4>Estudiantes:</h4>
-            <div class="student-item" *ngFor="let student of students">
-                <span>{{ student.nombre }} {{ student.apellido_paterno }} {{ student.apellido_materno }} ({{
-                    student.id_alumno }})</span>
-            </div>
-        </div>
-        <div class="no-students" *ngIf="showStudents && students.length === 0 && !loadingStudents && !errorMessage">
-            No hay estudiantes registrados.
-        </div>
-    </div>
+    <app-students-list [assignment]="assignment"></app-students-list>
 </div>

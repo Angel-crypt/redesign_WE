@@ -26,8 +26,7 @@ import { DatosPerfil } from './pages/user/profile/datos-perfil/datos-perfil';
 import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
 import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-calendar/disponibilidad-calendar';
 import { AssignmentCard } from './pages/user/assigned-groups/assignment-card/assignment-card';
-import { CalificacionesC } from './pages/user/assigned-groups/calificaciones-c/calificaciones-c';
-
+import { StudentsSection } from './pages/user/assigned-groups/students-list/students-list';
 @NgModule({
   declarations: [
     App,
@@ -49,7 +48,7 @@ import { CalificacionesC } from './pages/user/assigned-groups/calificaciones-c/c
     ProfilePage,
     DisponibilidadCalendar,
     AssignmentCard,
-    CalificacionesC,
+    StudentsSection,
   ],
   imports: [
     BrowserModule,

@@ -3,15 +3,6 @@ import { Asignacion } from '../../../../interfaces/entities';
 import { GruposService } from '../../../../services/maestro/asignaciones/grupos';
 import { PlaneacionS } from '../../../../services/maestro/planeacion/planeacion-s';
 
-interface Estudiante {
-  id_alumno: string;
-  nombre: string;
-  apellido_paterno: string;
-  apellido_materno: string;
-  fecha_nacimiento: string;
-  sexo: string;
-}
-
 @Component({
   selector: 'app-assignment-card',
   standalone: false,
@@ -20,10 +11,6 @@ interface Estudiante {
 })
 export class AssignmentCard {
   @Input() assignment!: Asignacion;
-  showStudents: boolean = false;
-  students: Estudiante[] = [];
-  loadingStudents: boolean = false;
-  errorMessage: string | null = null;
   selectedFile: File | null = null;
   showUploadForm: boolean = false;
   isUploading: boolean = false;
@@ -59,38 +46,6 @@ export class AssignmentCard {
     const hash = this.hashString(String(this.assignment.grupo.id_grupo));
     const index = hash % this.colorPalette.length;
     return this.colorPalette[index];
-  }
-
-  toggleStudentList(): void {
-    if (this.showStudents) {
-      this.showStudents = false;
-      this.students = [];
-      this.errorMessage = null;
-      return;
-    }
-
-    this.loadingStudents = true;
-    this.errorMessage = null;
-
-    this.gruposService
-      .getDetallesGrupo(String(this.assignment.grupo.id_grupo))
-      .subscribe({
-        next: (response) => {
-          if (response.success && response.data?.estudiantes) {
-            this.students = response.data.estudiantes;
-            this.showStudents = true;
-          } else {
-            this.errorMessage =
-              'No se encontraron estudiantes para este grupo.';
-          }
-          this.loadingStudents = false;
-        },
-        error: (err) => {
-          console.error('Error fetching students:', err);
-          this.errorMessage = 'Error al cargar la lista de estudiantes.';
-          this.loadingStudents = false;
-        },
-      });
   }
 
   openPlaneacion(url: string | undefined): void {
