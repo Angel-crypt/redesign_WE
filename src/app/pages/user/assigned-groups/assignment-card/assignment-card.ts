@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { Asignacion } from '../../../../interfaces/entities';
 import { GruposService } from '../../../../services/maestro/asignaciones/grupos';
 import { PlaneacionS } from '../../../../services/maestro/planeacion/planeacion-s';
-import { Observable } from 'rxjs';
 
 interface Estudiante {
   id_alumno: string;
