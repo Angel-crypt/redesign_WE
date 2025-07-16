@@ -53,7 +53,7 @@ export interface Asignacion extends BaseEntity {
   curso: Curso;
   grupo: Grupo;
   horarios?: Horario[];
-  planeacionPdfUrl?: string;
-  tienePlaneacion: boolean;
-  totalEstudiantes: number;
+  planeacion_pdf_url?: string;
+  tiene_planeacion: boolean;
+  total_estudiantes: number;
 }

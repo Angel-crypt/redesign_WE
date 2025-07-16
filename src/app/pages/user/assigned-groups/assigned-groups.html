@@ -1,1 +1,14 @@
-<p>assigned-groups works!</p>
+<div class="assigned-groups-container">
+    <div class="loading" *ngIf="loading">
+        Cargando...
+    </div>
+
+    <div class="groups-list" *ngIf="!loading">
+        <app-assignment-card *ngFor="let assignment of assignedGroups" [assignment]="assignment">
+        </app-assignment-card>
+    </div>
+
+    <div class="empty-state" *ngIf="!loading && assignedGroups.length === 0">
+        No hay grupos asignados
+    </div>
+</div>

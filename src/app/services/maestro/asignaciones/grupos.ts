@@ -3,15 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { Asignacion, Grupo, Curso, Horario } from '../../../interfaces/entities';
 import { MaestroAsignacionesResponse } from '../../../interfaces/maestro-interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Grupos {
+export class GruposService {
   private baseUrl = 'http://localhost:5000';
   private apiVersion = 'v1';
 
-  constructor( private http: HttpClient ) { }
+  constructor(private http: HttpClient) { }
+
+  getAllAsignaciones(): Observable<MaestroAsignacionesResponse> {
+    const url = `${this.baseUrl}/${this.apiVersion}/maestro/assignments`;
+    return this.http.get<MaestroAsignacionesResponse>(url, { withCredentials: true })
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching grupos:', error);
+          throw error;
+        })
+      );
+  }
 }

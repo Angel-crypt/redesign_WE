@@ -1,0 +1,30 @@
+<div class="assignment-card">
+    <div class="group-header">
+        <h3>{{assignment.curso.codigo}} - {{assignment.curso.descripcion}}</h3>
+        <span class="students-count">{{assignment.total_estudiantes}} estudiantes</span>
+    </div>
+
+    <div class="group-info">
+        <p><strong>Grupo:</strong> {{assignment.grupo.id_grupo}}</p>
+        <p><strong>Facultad:</strong> {{assignment.grupo.facultad}}</p>
+        <p><strong>Generación:</strong> {{assignment.grupo.generacion}}</p>
+    </div>
+
+    <div class="horarios-section" *ngIf="(assignment.horarios?.length ?? 0) > 0">
+        <h4>Horarios:</h4>
+        <div class="horario-item" *ngFor="let horario of assignment.horarios">
+            <span>{{horario.dia_semana}}: {{horario.hora_inicio}} - {{horario.hora_fin}}</span>
+        </div>
+    </div>
+
+    <div class="planeacion-section">
+        <div *ngIf="assignment.tiene_planeacion" class="planeacion-available">
+            <a [href]="assignment.planeacion_pdf_url" target="_blank" class="pdf-link">
+                Ver Planeación (PDF)
+            </a>
+        </div>
+        <div *ngIf="!assignment.tiene_planeacion" class="no-planeacion">
+            Sin planeación disponible
+        </div>
+    </div>
+</div>
