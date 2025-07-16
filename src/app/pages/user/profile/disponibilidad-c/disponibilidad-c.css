@@ -1,0 +1,91 @@
+.disponibilidad-c-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+  max-width: 600px;
+  margin: 0 auto;
+}
+.disponibilidad-c-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  color: #4B0082;
+  margin-bottom: 1.5rem;
+}
+.disponibilidad-c-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.disponibilidad-c-actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.disponibilidad-c-actions button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+.disponibilidad-c-actions button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  margin-left: 8px;
+}
+.disponibilidad-c-actions button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.disponibilidad-c-field {
+  display: flex;
+  flex-direction: column;
+}
+.disponibilidad-c-field label {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+.disponibilidad-c-field select {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+.disponibilidad-c-field select:hover {
+  border-color: #4B0082;
+}
+.disponibilidad-c-field select:focus {
+  border-color: #4B0082;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(75, 0, 130, 0.15);
+}
+.disponibilidad-c-actions {
+  text-align: center;
+}
+.disponibilidad-c-actions button {
+  background-color: #4B0082;
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.disponibilidad-c-actions button:hover {
+  background-color: #3a006d;
+}
+.disponibilidad-c-actions button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.disponibilidad-c-error {
+  margin-top: 1rem;
+  color: #dc3545;
+  text-align: center;
+  font-weight: 500;
+}

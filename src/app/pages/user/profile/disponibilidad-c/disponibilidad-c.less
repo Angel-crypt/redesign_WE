@@ -21,6 +21,28 @@ flex-direction: column;
 gap: 1.25rem;
 }
 
+.disponibilidad-c-actions button {
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+.disponibilidad-c-actions button[type="submit"] {
+  background-color: #28a745;
+  color: white;
+  border: none;
+}
+
+.disponibilidad-c-actions button[type="button"] {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  margin-left: 8px;
+}
+.disponibilidad-c-actions button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .disponibilidad-c-field {
 display: flex;
 flex-direction: column;
