@@ -1,0 +1,16 @@
+<div>
+    <h2>Subir Calificaciones</h2>
+
+    <div *ngIf="isLoading">
+        <p>Cargando...</p>
+    </div>
+
+    <div *ngIf="!isLoading">
+        <p>{{ statusMessage }}</p>
+
+        <button (click)="uploadGrades()" [disabled]="!canUploadGrades">
+            Subir Calificaciones
+        </button>
+        <button (click)="refreshStatus()">Actualizar Estado</button>
+    </div>
+</div>
