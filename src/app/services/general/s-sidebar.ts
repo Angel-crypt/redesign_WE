@@ -19,7 +19,7 @@ export class SSidebar {
     const maestroMenu: MenuItem[] = [
       { title: 'Inicio', icon: 'home', route: '/landing' },
       { title: 'Mi Perfil', icon: 'person', route: '/profile' },
-      { title: 'Mis Grupos', icon: 'group', route: '/groups' },
+      { title: 'Mis Grupos', icon: 'assignment', route: '/groups' },
     ];
     this.hasBeenInitialized = true;
     this.setMenu(maestroMenu);
@@ -29,7 +29,7 @@ export class SSidebar {
     const adminMenu: MenuItem[] = [
       { title: 'Dashboard', icon: 'dashboard', route: '/admin/dashboard' },
       { title: 'Gestión de Maestros', icon: 'people', route: '/admin/maestros' },
-      { title: 'Cursos', icon: 'grade', route: '/admin/cursos' },
+      { title: 'Cursos', icon: 'school', route: '/admin/cursos' },
     ];
     this.setMenu(adminMenu);
   }
