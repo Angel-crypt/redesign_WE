@@ -15,7 +15,7 @@
         <!-- Formulario de login -->
         <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
             <div class="form-group">
-                <label for="id_usuario">ID Usuario</label>
+                <label for="id_usuario">ID {{ isAdminLogin ? 'Administrador' : 'Maestro' }}</label>
                 <app-input-form type="text" id="id_usuario" placeholder="Ingresa tu ID de usuario" [control]="form.get('id_usuario')" (input)="onUppercaseInput($event)">
                 </app-input-form>
             </div>
