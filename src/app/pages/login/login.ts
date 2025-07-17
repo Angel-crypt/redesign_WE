@@ -68,7 +68,7 @@ export class Login {
         this.adminAuthService.loginAdmin(credentials).subscribe({
           next: (res) => {
             if (res.success) {
-              this.router.navigate(['/landing']);
+              this.router.navigate(['/admin/landing']);
             } else {
               this.showErrorAlert(
                 'Inicio de sesión fallido',
