@@ -1,10 +1,12 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 export interface StatItem {
   key: string;
   value: number;
   label: string;
   color?: string;
+  route?: string;
 }
 
 @Component({
@@ -17,9 +19,11 @@ export class DataShow {
   @Input() stats: any = {};
   @Input() title: string = 'Estadísticas del Sistema';
 
+  constructor(private router: Router) {}
+
   get statItems(): StatItem[] {
     const statsMapping: {
-      [key: string]: { label: string; color: string;  };
+      [key: string]: { label: string; color: string; route?: string };
     } = {
       total_alumnos: {
         label: 'Total Alumnos',
@@ -36,6 +40,7 @@ export class DataShow {
       total_maestros: {
         label: 'Total Maestros',
         color: '#FD7E14',
+        route: '/admin/maestros',
       },
       total_asignaciones: {
         label: 'Total Asignaciones',
@@ -52,6 +57,13 @@ export class DataShow {
       value: this.stats[key],
       label: statsMapping[key]?.label || key,
       color: statsMapping[key]?.color || '#4B0082',
+      route: statsMapping[key]?.route,
     }));
+  }
+
+  onStatClick(stat: StatItem): void {
+    if (stat.route) {
+      this.router.navigate([stat.route]);
+    }
   }
 }

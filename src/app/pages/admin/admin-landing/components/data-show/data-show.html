@@ -1,6 +1,7 @@
 <div class="admin-stats-container">
     <div class="stats-grid">
-        <div class="stat-card" *ngFor="let stat of statItems; let i = index" [style.border-left-color]="stat.color">
+        <div class="stat-card" *ngFor="let stat of statItems; let i = index" [style.border-left-color]="stat.color" [class.clickable]="stat.route"
+             (click)="onStatClick(stat)">
             <div class="stat-content">
                 <p class="stat-label">{{ stat.label }}</p>
                 <p class="stat-value">{{ stat.value }}</p>
