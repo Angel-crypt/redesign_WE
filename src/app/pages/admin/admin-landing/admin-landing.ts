@@ -23,7 +23,6 @@ export class AdminLanding implements OnInit {
       next: (res) => {
         if (res.success && res.data) {
           this.adminStats = res.data.estadisticas;
-          console.log('Admin Stats:', this.adminStats);
         } else {
           this.error = 'No se pudieron cargar las estadísticas';
         }
