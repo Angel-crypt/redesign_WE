@@ -27,7 +27,6 @@ import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
 import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-calendar/disponibilidad-calendar';
 import { AssignmentCard } from './pages/user/assigned-groups/assignment-card/assignment-card';
 import { StudentsSection } from './pages/user/assigned-groups/students-list/students-list';
-import { LandingA } from './pages/admin/landing-a/landing-a';
 @NgModule({
   declarations: [
     App,
@@ -50,7 +49,6 @@ import { LandingA } from './pages/admin/landing-a/landing-a';
     DisponibilidadCalendar,
     AssignmentCard,
     StudentsSection,
-    LandingA,
   ],
   imports: [
     BrowserModule,

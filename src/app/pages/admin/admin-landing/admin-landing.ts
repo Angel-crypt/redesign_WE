@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SSidebar } from '../../../services/general/s-sidebar';
 
 @Component({
   selector: 'app-admin-landing',
@@ -6,6 +7,11 @@ import { Component } from '@angular/core';
   templateUrl: './admin-landing.html',
   styleUrl: './admin-landing.less'
 })
-export class AdminLanding {
+export class AdminLanding implements OnInit {
+  constructor(private sidebarService: SSidebar) {
+  }
 
+  ngOnInit(): void {
+    this.sidebarService.setMaestroMenu();
+  }
 }
