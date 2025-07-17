@@ -13,7 +13,7 @@ export interface PaginatedResponse<T = any> extends ApiResponse<T[]> {
 
 export type ID = string | number;
 
-export enum dia_semana{
+export enum dia_semana {
   LUNES = 'lunes',
   MARTES = 'martes',
   MIERCOLES = 'miercoles',

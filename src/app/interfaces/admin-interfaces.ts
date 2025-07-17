@@ -23,6 +23,5 @@ export interface AdminDashboardData {
 export interface AdminDashboardResponse
   extends ApiResponse<AdminDashboardData> { }
 
-export interface AdminMaestroResponse extends ApiResponse<Maestro> {
-  maestros: Maestro[];
+export interface AdminMaestroResponse extends ApiResponse<Maestro[]> {
 }
