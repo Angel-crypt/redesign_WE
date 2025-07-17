@@ -25,6 +25,15 @@ export class SSidebar {
     this.setMenu(maestroMenu);
   }
 
+  setAdminMenu() {
+    const adminMenu: MenuItem[] = [
+      { title: 'Dashboard', icon: 'dashboard', route: '/admin/dashboard' },
+      { title: 'Gestión de Maestros', icon: 'people', route: '/admin/maestros' },
+      { title: 'Cursos', icon: 'grade', route: '/admin/cursos' },
+    ];
+    this.setMenu(adminMenu);
+  }
+
   getMenu(): Observable<MenuItem[]> {
     return this.menuSubject.asObservable();
   }
@@ -40,6 +49,12 @@ export class SSidebar {
   initializeMaestroMenuIfNeeded() {
     if (!this.hasBeenInitialized) {
       this.setMaestroMenu();
+    }
+  }
+
+  initializeAdminMenuIfNeeded() {
+    if (!this.hasBeenInitialized) {
+      this.setAdminMenu();
     }
   }
 }

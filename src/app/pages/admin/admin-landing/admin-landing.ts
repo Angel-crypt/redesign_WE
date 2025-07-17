@@ -12,6 +12,6 @@ export class AdminLanding implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sidebarService.setMaestroMenu();
+    this.sidebarService.setAdminMenu();
   }
 }
