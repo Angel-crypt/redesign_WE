@@ -8,7 +8,7 @@ import { AdminMaestroResponse } from '../../../interfaces/admin-interfaces';
 @Injectable({
   providedIn: 'root'
 })
-export class SMaestros {
+export class AdminMaestrosService {
   private baseUrl = 'http://localhost:5000';
   private apiVersion = 'v1';
 
