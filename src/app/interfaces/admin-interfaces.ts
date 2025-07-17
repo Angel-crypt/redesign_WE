@@ -1,4 +1,5 @@
 import { ApiResponse } from './base';
+import { Maestro } from './entities';
 
 export interface UserInfo {
   role: string;
@@ -20,4 +21,8 @@ export interface AdminDashboardData {
 }
 
 export interface AdminDashboardResponse
-  extends ApiResponse<AdminDashboardData> {}
+  extends ApiResponse<AdminDashboardData> { }
+
+export interface AdminMaestroResponse extends ApiResponse<Maestro> {
+  maestros: Maestro[];
+}
