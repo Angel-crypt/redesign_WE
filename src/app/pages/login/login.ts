@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MaestroAuthService } from '../../services/maestro/auth/s-auth';
+import { AdminAuthService } from '../../services/admin/s-aauth';
 import { LoginRequest } from '../../interfaces/auth';
 import Swal from 'sweetalert2';
 
@@ -13,9 +14,11 @@ import Swal from 'sweetalert2';
 })
 export class Login {
   form: FormGroup;
+  isAdminLogin = false;
 
   constructor(
-    private authService: MaestroAuthService,
+    private maestroAuthService: MaestroAuthService,
+    private adminAuthService: AdminAuthService,
     private router: Router,
     private fb: FormBuilder
   ) {
@@ -38,52 +41,86 @@ export class Login {
     this.form.get('id_usuario')?.setValue(value);
   }
 
+  toggleLoginType() {
+    this.isAdminLogin = !this.isAdminLogin;
+    this.form.reset();
+  }
+
+  get loginButtonText(): string {
+    return this.isAdminLogin
+      ? 'Iniciar sesión como Admin'
+      : 'Iniciar sesión como Maestro';
+  }
+
+  get toggleButtonText(): string {
+    return this.isAdminLogin ? 'Cambiar a Maestro' : 'Cambiar a Admin';
+  }
+
+  get formTitle(): string {
+    return this.isAdminLogin ? 'Login de Administrador' : 'Login de Maestro';
+  }
+
   login() {
     if (this.form.valid) {
       const credentials: LoginRequest = this.form.value;
 
-      this.authService.loginMaestro(credentials).subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.router.navigate(['/landing']);
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Inicio de sesión fallido',
-              text: res.message || 'Credenciales incorrectas',
-              customClass: {
-                popup: 'custom-swal',
-                title: 'custom-title',
-                htmlContainer: 'custom-text',
-                confirmButton: 'custom-error',
-              },
-              confirmButtonText: 'Reintentar',
-            });
-            this.form.reset();
-          }
-        },
-        error: (err) => {
-          let mensaje = 'Error en la solicitud';
-          if (err.status === 401) {
-            mensaje = err.error?.error || 'Credenciales inválidas';
-          }
-
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: mensaje,
-            customClass: {
-              popup: 'custom-swal',
-              title: 'custom-title',
-              htmlContainer: 'custom-text',
-              confirmButton: 'custom-error',
-            },
-            confirmButtonText: 'Reintentar',
-          });
-
-          this.form.reset();
-        },
-      });
+      if (this.isAdminLogin) {
+        this.adminAuthService.loginAdmin(credentials).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.router.navigate(['/landing']);
+            } else {
+              this.showErrorAlert(
+                'Inicio de sesión fallido',
+                res.message || 'Credenciales incorrectas'
+              );
+            }
+          },
+          error: (err) => {
+            let mensaje = 'Error en la solicitud';
+            if (err.status === 401) {
+              mensaje = err.error?.error || 'Credenciales inválidas';
+            }
+            this.showErrorAlert('Error', mensaje);
+          },
+        });
+      } else {
+        this.maestroAuthService.loginMaestro(credentials).subscribe({
+          next: (res) => {
+            if (res.success) {
+              this.router.navigate(['/landing']);
+            } else {
+              this.showErrorAlert(
+                'Inicio de sesión fallido',
+                res.message || 'Credenciales incorrectas'
+              );
+            }
+          },
+          error: (err) => {
+            let mensaje = 'Error en la solicitud';
+            if (err.status === 401) {
+              mensaje = err.error?.error || 'Credenciales inválidas';
+            }
+            this.showErrorAlert('Error', mensaje);
+          },
+        });
+      }
     }
+  }
+
+  private showErrorAlert(title: string, text: string) {
+    Swal.fire({
+      icon: 'error',
+      title: title,
+      text: text,
+      customClass: {
+        popup: 'custom-swal',
+        title: 'custom-title',
+        htmlContainer: 'custom-text',
+        confirmButton: 'custom-error',
+      },
+      confirmButtonText: 'Reintentar',
+    });
+    this.form.reset();
   }
 }

@@ -1,22 +1,38 @@
 <div class="login-container">
-    <div class="login-box">
-        <img src="assets/images/logo_gu.png" alt="Logo" class="login-logo">
-        <h2 class="login-title">Docentes</h2>
-        <p class="login-subtitle">Inicio de sesión</p>
-        <form [formGroup]="form" (ngSubmit)="login()">
-            <div class="input-container">
-                <app-input-form type="text" placeholder="ID" [control]="form.get('id_usuario')"
-                    (input)="onUppercaseInput($event)">
-                </app-input-form>
+    <div class="login-card">
+        <!-- Indicador del tipo de login -->
+        <div class="login-type-indicator">
+            <h2>{{ formTitle }}</h2>
+        </div>
 
-                <app-input-form type="password" placeholder="Contraseña"
-                    [control]="form.get('contrasena')">
+        <!-- Botón para cambiar tipo de login -->
+        <div class="toggle-section">
+            <app-button-action [label]="toggleButtonText" [type]="'button'" [disabled]="false" (action)="toggleLoginType()"
+                [class.admin-mode]="isAdminLogin" [class.maestro-mode]="!isAdminLogin" class="toggle-button-wrapper">
+            </app-button-action>
+        </div>
+
+        <!-- Formulario de login -->
+        <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
+            <div class="form-group">
+                <label for="id_usuario">ID Usuario</label>
+                <app-input-form type="text" id="id_usuario" placeholder="Ingresa tu ID de usuario" [control]="form.get('id_usuario')" (input)="onUppercaseInput($event)">
                 </app-input-form>
             </div>
-            <div class="button-container">
-                <app-button-action label="Iniciar" type="submit" [disabled]="form.invalid" (action)="login()">
-                </app-button-action>
+
+            <div class="form-group">
+                <label for="contrasena">Contraseña</label>
+                <app-input-form type="password" id="contrasena" placeholder="Ingresa tu contraseña" [control]="form.get('contrasena')">
+                </app-input-form>
             </div>
+
+            <button type="submit"  [class.admin-button]="isAdminLogin"
+                [class.maestro-button]="!isAdminLogin" [disabled]="form.invalid">
+                
+            </button>
+            <app-button-action [label]="loginButtonText" [type]="'submit'" [disabled]="form.invalid" (action)="login()"
+                [class.admin-button]="isAdminLogin" [class.maestro-button]="!isAdminLogin">
+            </app-button-action>
         </form>
     </div>
 </div>
