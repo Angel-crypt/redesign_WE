@@ -27,6 +27,7 @@ import { ProfilePage } from './pages/user/profile/profile-page/profile-page';
 import { DisponibilidadCalendar } from './pages/user/profile/disponibilidad-calendar/disponibilidad-calendar';
 import { AssignmentCard } from './pages/user/assigned-groups/assignment-card/assignment-card';
 import { StudentsSection } from './pages/user/assigned-groups/students-list/students-list';
+import { DataShow } from './pages/admin/admin-landing/components/data-show/data-show';
 @NgModule({
   declarations: [
     App,
@@ -49,6 +50,7 @@ import { StudentsSection } from './pages/user/assigned-groups/students-list/stud
     DisponibilidadCalendar,
     AssignmentCard,
     StudentsSection,
+    DataShow,
   ],
   imports: [
     BrowserModule,
