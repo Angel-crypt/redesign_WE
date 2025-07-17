@@ -1,65 +1,51 @@
-/* === Paleta Global University Aguascalientes === */
-/* === Espaciado global === */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-/* === Estilos globales === */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #2e2e2e;
-  background-color: #ffffff;
-}
 .sidebar {
-  width: 200px;
+  position: fixed;
+  top: 0;
+  left: 0;
   height: 100vh;
-  background-color: #c5e2ff;
-  color: #2e2e2e;
-  padding: 10px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  background-color: #ffffff;
+  padding: 2rem 1rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.04);
+  box-sizing: border-box;
+  z-index: 1000;
 }
 .menu {
   list-style: none;
   padding: 0;
   margin: 0;
-  flex: 1;
-}
-.menu-item {
   display: flex;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1 1 auto;
 }
-.menu-item:hover {
-  background-color: #e6e6e6;
-}
-.menu-separator {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  margin: 10px 0;
-}
+.menu-item,
 .logout-item {
-  margin-top: auto;
-  font-weight: bold;
   display: flex;
   align-items: center;
-  padding: 10px;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 6px;
   cursor: pointer;
-}
-.logout-item:hover {
-  background-color: #e6e6e6;
+  text-decoration: none;
+  color: #2e2e2e;
+  transition: background-color 0.2s, color 0.2s;
 }
 .material-icons {
-  margin-right: 10px;
-  font-size: 24px;
+  font-size: 20px;
 }
-.menu-title {
-  font-size: 16px;
+.menu-item:hover,
+.logout-item:hover,
+.menu-item.active,
+.logout-item.active {
+  background-color: #4B0082;
+  color: #ffffff;
+}
+.logout-container {
+  flex-shrink: 0;
 }

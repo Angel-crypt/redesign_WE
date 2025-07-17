@@ -1,5 +1,4 @@
-// src/app/shared/sidebar/sidebar.ts
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { SSidebar, MenuItem } from '../../services/general/s-sidebar';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
@@ -23,12 +22,16 @@ export class Sidebar implements OnInit, OnDestroy {
   constructor(
     private sidebarService: SSidebar,
     private router: Router,
-    private authService: MaestroAuthService
+    private authService: MaestroAuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    this.sidebarService.initializeMaestroMenuIfNeeded();
+
     this.menuSubscription = this.sidebarService.getMenu().subscribe((menu) => {
       this.menuItems = menu;
+      this.cdr.detectChanges();
     });
   }
 

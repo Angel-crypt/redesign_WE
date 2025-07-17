@@ -1,4 +1,3 @@
-// src/app/services/general/s-sidebar.ts
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -14,6 +13,7 @@ export interface MenuItem {
 })
 export class SSidebar {
   private menuSubject = new BehaviorSubject<MenuItem[]>([]);
+  private hasBeenInitialized = false;
 
   setMaestroMenu() {
     const maestroMenu: MenuItem[] = [
@@ -21,6 +21,7 @@ export class SSidebar {
       { title: 'Mi Perfil', icon: 'person', route: '/profile' },
       { title: 'Mis Grupos', icon: 'group', route: '/groups' },
     ];
+    this.hasBeenInitialized = true;
     this.setMenu(maestroMenu);
   }
 
@@ -30,5 +31,15 @@ export class SSidebar {
 
   setMenu(menu: MenuItem[]) {
     this.menuSubject.next(menu);
+  }
+
+  isInitialized(): boolean {
+    return this.hasBeenInitialized;
+  }
+
+  initializeMaestroMenuIfNeeded() {
+    if (!this.hasBeenInitialized) {
+      this.setMaestroMenu();
+    }
   }
 }

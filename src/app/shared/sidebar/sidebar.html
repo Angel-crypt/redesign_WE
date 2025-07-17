@@ -1,23 +1,14 @@
 <div class="sidebar">
   <ul class="menu">
-    <li
-      *ngFor="let item of menuItems"
-      class="menu-item"
-      [routerLink]="item.route"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
+    <li *ngFor="let item of menuItems" class="menu-item" [routerLink]="item.route"
+      routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <span *ngIf="item.icon" class="material-icons">{{ item.icon }}</span>
       <span class="menu-title">{{ item.title }}</span>
     </li>
   </ul>
 
-  <!-- Asegúrate de que esto esté fuera del <ul> -->
   <div class="logout-container">
-    <li
-      class="logout-item"
-      (click)="handleMenuItem(logoutItem)"
-    >
+    <li class="logout-item" (click)="handleMenuItem(logoutItem)">
       <span class="material-icons">{{ logoutItem.icon }}</span>
       <span class="menu-title">{{ logoutItem.title }}</span>
     </li>
