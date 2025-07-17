@@ -1,6 +1,18 @@
 <div class="landing-wrapper">
     <div class="landing-container">
         <p class="landing-title">Bienvenido(a)</p>
-        <app-data-show [stats]="adminStats"></app-data-show>
+
+        <div *ngIf="loading" class="loading-container">
+            <div class="loading-spinner"></div>
+            <p class="loading-text">Cargando estadísticas...</p>
+        </div>
+
+        <div *ngIf="error && !loading" class="error-container">
+            <p class="error-text">{{ error }}</p>
+            <button class="retry-button" (click)="ngOnInit()">Reintentar</button>
+        </div>
+
+        <app-data-show *ngIf="!loading && !error && adminStats" [stats]="adminStats">
+        </app-data-show>
     </div>
 </div>
