@@ -27,7 +27,7 @@ export class SSidebar {
 
   setAdminMenu() {
     const adminMenu: MenuItem[] = [
-      { title: 'Dashboard', icon: 'dashboard', route: '/admin/dashboard' },
+      { title: 'Dashboard', icon: 'dashboard', route: '/admin/landing' },
       { title: 'Gestión de Maestros', icon: 'people', route: '/admin/maestros' },
       { title: 'Cursos', icon: 'school', route: '/admin/cursos' },
     ];

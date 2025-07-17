@@ -12,7 +12,7 @@ import { Landing } from './pages/user/landing/landing';
 
 import { AssignedGroups } from './pages/user/assigned-groups/assigned-groups';
 import { AdminLanding } from './pages/admin/admin-landing/admin-landing';
-import { AdminUsers } from './pages/admin/admin-users/admin-users';
+import { AdminMaestros } from './pages/admin/admin-maestros/admin-maestros';
 import { Navbar } from './shared/navbar/navbar';
 import { Buttons } from './shared/buttons/buttons';
 import { Inputs } from './shared/inputs/inputs';
@@ -34,7 +34,7 @@ import { DataShow } from './pages/admin/admin-landing/components/data-show/data-
     Login,
     AssignedGroups,
     AdminLanding,
-    AdminUsers,
+    AdminMaestros,
     Navbar,
     Buttons,
     Inputs,
