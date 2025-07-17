@@ -1,27 +1,29 @@
-<div *ngIf="loading" class="loading">Cargando disponibilidad...</div>
-<div *ngIf="error" class="error">{{ error }}</div>
-<div class="calendar-container" *ngIf="!loading && !error">
-    <h3 >Disponibilidad Semanal</h3>
-    <div class="week-view">
-        <div class="day-header">
-            <div *ngFor="let day of ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']" class="day">
-                {{ day }}
-            </div>
-        </div>
-        <div class="time-slots">
-            <div *ngFor="let hour of hours" class="hour-slot">
-                <div class="hour-label">{{ hour }}</div>
-                
-                <div *ngFor="let day of [1,2,3,4,5,6]" class="day-slot" [class.clickable]="true"
-    (click)="onSlotClick(day, hour)">
-    
-    <ng-container *ngIf="getEventsForSlot(day, hour).length === 0">
-        <span class="plus-icon">+</span>
-    </ng-container>
-
-    <ng-container *ngFor="let event of getEventsForSlot(day, hour)">
-        <div class="event" [style.backgroundColor]="event.color">
-            {{ event.title }}
-        </div>
-    </ng-container>
+<div class="calendar-wrapper">
+  <div *ngIf="loading" class="loading">Cargando disponibilidad...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <div class="calendar-container" *ngIf="!loading && !error">
+      <h3>Disponibilidad Semanal</h3>
+      <div class="week-view">
+          <div class="day-header">
+              <div *ngFor="let day of ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb']" class="day">
+                  {{ day }}
+              </div>
+          </div>
+          <div class="time-slots">
+              <div *ngFor="let hour of hours" class="hour-slot">
+                  <div class="hour-label">{{ hour }}</div>
+                  <div *ngFor="let day of [1,2,3,4,5,6]" class="day-slot" [class.clickable]="true" (click)="onSlotClick(day, hour)">
+                      <ng-container *ngIf="getEventsForSlot(day, hour).length === 0">
+                          <span class="plus-icon">+</span>
+                      </ng-container>
+                      <ng-container *ngFor="let event of getEventsForSlot(day, hour)">
+                          <div class="event" [style.backgroundColor]="event.color">
+                              {{ event.title }}
+                          </div>
+                      </ng-container>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
