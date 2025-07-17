@@ -15,7 +15,7 @@ export class DashboardAdminService {
   constructor(private http: HttpClient) { }
 
   getDashboardData(): Observable<AdminDashboardResponse> {
-    const url = `${this.baseUrl}/api/${this.apiVersion}/admin/dashboard`;
+    const url = `${this.baseUrl}/${this.apiVersion}/admin/dashboard`;
     return this.http.get<AdminDashboardResponse>(url, { withCredentials: true }).pipe(
       catchError(error => {
         console.error('Error fetching dashboard data:', error);
