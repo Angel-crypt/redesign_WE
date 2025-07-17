@@ -1,9 +1,29 @@
 .layout {
   display: flex;
-  min-height: 100vh;
 }
 
 .content {
-  flex: 1;
-  padding: 20px;
+  flex-grow: 1;
+  padding: 2rem;
+  margin-left: 200px; // espacio reservado para la sidebar
+}
+
+.layout {
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 2rem;
+  margin-left: 200px; // espacio reservado para la sidebar
+}
+
+.content.full-width {
+  margin-left: 0;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0 !important;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }

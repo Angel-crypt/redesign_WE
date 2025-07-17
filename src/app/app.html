@@ -1,6 +1,6 @@
 <div class="layout">
-    <app-sidebar *ngIf="isNotLoginPage()"></app-sidebar>
-    <div class="content">
-        <router-outlet></router-outlet>
-    </div>
+  <app-sidebar *ngIf="isNotLoginPage()"></app-sidebar>
+  <div class="content" [class.full-width]="!isNotLoginPage()">
+    <router-outlet></router-outlet>
+  </div>
 </div>

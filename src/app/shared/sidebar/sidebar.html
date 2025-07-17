@@ -10,15 +10,16 @@
       <span *ngIf="item.icon" class="material-icons">{{ item.icon }}</span>
       <span class="menu-title">{{ item.title }}</span>
     </li>
+  </ul>
 
-    <li class="menu-separator"></li>
-
-<div class="logout-container">
-  <li
-    class="logout-item"
-    (click)="handleMenuItem(logoutItem)"
-  >
-    <span class="material-icons">{{ logoutItem.icon }}</span>
-    <span class="menu-title">{{ logoutItem.title }}</span>
-  </li>
+  <!-- Asegúrate de que esto esté fuera del <ul> -->
+  <div class="logout-container">
+    <li
+      class="logout-item"
+      (click)="handleMenuItem(logoutItem)"
+    >
+      <span class="material-icons">{{ logoutItem.icon }}</span>
+      <span class="menu-title">{{ logoutItem.title }}</span>
+    </li>
+  </div>
 </div>
