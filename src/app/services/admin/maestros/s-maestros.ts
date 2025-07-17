@@ -23,4 +23,24 @@ export class SMaestros {
       })
     );
   }
+
+  getMaestroById(maestroId: string): Observable<AdminMaestroResponse> {
+    const url = `${this.baseUrl}/${this.apiVersion}/admin/maestros/${maestroId}`;
+    return this.http.get<AdminMaestroResponse>(url, { withCredentials: true }).pipe(
+      catchError(error => {
+        console.error(`Error fetching maestro with ID ${maestroId}:`, error);
+        return of({} as AdminMaestroResponse);
+      })
+    );
+  }
+
+  createMaestro(maestroData: any): Observable<AdminMaestroResponse> {
+    const url = `${this.baseUrl}/${this.apiVersion}/admin/maestros`;
+    return this.http.post<AdminMaestroResponse>(url, maestroData, { withCredentials: true }).pipe(
+      catchError(error => {
+        console.error('Error creating maestro:', error);
+        return of({} as AdminMaestroResponse);
+      })
+    );
+  }
 }
